@@ -1,9 +1,8 @@
 import { useRef } from "react";
-import type {IColorElementProps} from "./types";
 
-const ColorElement = ({ color, name, index, removeColor, editColor }: IColorElementProps) => {
-  const colorRef = useRef<HTMLInputElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
+const ColorElement = ({ color, name, index, removeColor, editColor }) => {
+  const colorRef = useRef(null);
+  const nameRef = useRef(null);
 
   const handleEdit = () => {
     if (!colorRef.current || !nameRef.current) return;

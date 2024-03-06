@@ -1,10 +1,9 @@
 import chroma from "chroma-js";
 import { getShades } from "../../utils/colors";
-import type { IColorExampleProps } from "./types";
 
 import * as s from "./styles.module.css";
 
-const ColorExample = ({name, color, lightestDark, darkestLight, colorSteps}: IColorExampleProps) => {
+const ColorExample = ({name, color, lightestDark, darkestLight, colorSteps}) => {
 
   const chromaColor = chroma(color);
 

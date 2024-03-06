@@ -5,17 +5,16 @@ import ColorExample from '../ColorExample';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 import * as s from './ColorApp.module.css';
-import type { TColorAppColors } from './types';
 
 export default function ColorApp() {
 
-  const [colorSteps, setColorSteps] = useLocalStorage<number>('colorSteps', 5);
-  const [lightestDark, setLightestDark] = useLocalStorage<number>('lightestDark', 0.01);
-  const [darkestLight, setDarkestLight] = useLocalStorage<number>('darkestLight', 0.65);
-  const [colors, setColors] = useLocalStorage<TColorAppColors>('colors', []);
+  const [colorSteps, setColorSteps] = useLocalStorage('colorSteps', 5);
+  const [lightestDark, setLightestDark] = useLocalStorage('lightestDark', 0.01);
+  const [darkestLight, setDarkestLight] = useLocalStorage('darkestLight', 0.65);
+  const [colors, setColors] = useLocalStorage('colors', []);
 
-  const colorRef = useRef<HTMLInputElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
+  const colorRef = useRef(null);
+  const nameRef = useRef(null);
 
   const addColor = () => {
     if(!colorRef.current || !nameRef.current) return;
@@ -25,12 +24,12 @@ export default function ColorApp() {
     setColors([...colors, {name, color} ]);
   }
 
-  const removeColor = (index: number) => {
+  const removeColor = (index) => {
     const newColors = colors.filter((_, i) => i !== index);
     setColors(newColors);
   }
 
-  const editColor = (index: number, color: string, name: string) => {
+  const editColor = (index, color, name) => {
     const newColors = colors.map((c, i) => {
       if(i === index) {
         return {name, color};

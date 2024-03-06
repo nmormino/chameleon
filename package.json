@@ -23,6 +23,7 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@types/chroma-js": "^2.4.4"
+    "@types/chroma-js": "^2.4.4",
+    "typings-for-css-modules-loader": "^1.7.0"
   }
 }
