@@ -3,11 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import ColorApp from '../components/ColorApp/index.jsx';
 ---
 
-<Layout title="Create color families with Chameleon" client:load>
+<Layout title="Create color families with Chameleon">
 	<header>
 		<h1>Welcome to Chameleon</h1>
 	</header>
-	<ColorApp/>
+	<ColorApp client:load/>
 </Layout>
 
 <style>
