@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef } from 'react';
 
 import ColorElement from '../ColorElement';
 import ColorExample from '../ColorExample';
@@ -83,7 +83,7 @@ export default function ColorApp() {
         </div>
       )}
       {!!colors.length && (
-        <div className="appBody">
+        <div className={s.appBody}>
           <div>
             <h1>Colors</h1>
             <ul
@@ -114,7 +114,7 @@ export default function ColorApp() {
           <div className={s.colorExamples}>
             {colors.map((color, i) => (
               <ColorExample
-                key={color.color + color.name}
+                key={i}
                 color={color.color}
                 name={color.name}
                 lightestDark={lightestDark}

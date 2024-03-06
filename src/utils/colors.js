@@ -1,6 +1,4 @@
-import chroma from "chroma-js"
-
-export const getShades = (hue: number, chroma:number , lightestDark:number, darkestLight:number, colorSteps:number) => {
+export const getShades = (hue, chroma , lightestDark, darkestLight, colorSteps) => {
   if (isNaN(hue)) hue = 0;
   if (isNaN(chroma)) chroma = 0;
 
