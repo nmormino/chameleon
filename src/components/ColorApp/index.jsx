@@ -10,7 +10,7 @@ export default function ColorApp() {
 
   const [colorSteps, setColorSteps] = useLocalStorage('colorSteps', 5);
   const [lightestDark, setLightestDark] = useLocalStorage('lightestDark', 0.01);
-  const [darkestLight, setDarkestLight] = useLocalStorage('darkestLight', 0.65);
+  const [darkestLight, setDarkestLight] = useLocalStorage('darkestLight', 1.1);
   const [colors, setColors] = useLocalStorage('colors', []);
 
   const colorRef = useRef(null);
@@ -21,7 +21,11 @@ export default function ColorApp() {
 
     const color = colorRef.current.value;
     const name = nameRef.current.value;
+
     setColors([...colors, {name, color} ]);
+
+    colorRef.current.value = '';
+    nameRef.current.value = '';
   }
 
   const removeColor = (index) => {
@@ -73,14 +77,14 @@ export default function ColorApp() {
             id="darkestLight"
             type="number"
             min="0.65"
-            max="1.1"
+            max="1.15"
             step="0.01"
             value={darkestLight}
             onChange={(e) => setDarkestLight(Number(e.target.value))}
           />
         </div>
       </div>
-      
+
       {!!colors.length && (
         <div className={s.appBody}>
           <div>
