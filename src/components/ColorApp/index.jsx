@@ -38,7 +38,7 @@ export default function ColorApp() {
     });
     setColors(newColors);
   }
-
+  console.log('COLORS', colors);
   return (
     <main className={s.colorApp}>
       {!!(colors.length) && (
