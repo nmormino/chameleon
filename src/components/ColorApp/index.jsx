@@ -38,50 +38,49 @@ export default function ColorApp() {
     });
     setColors(newColors);
   }
-  console.log('COLORS', colors);
+
   return (
     <main className={s.colorApp}>
-      {!!(colors.length) && (
-        <div className={s.configForm}>
-          <div>
-            <input type="color" ref={colorRef}/>
-            <input type="text" ref={nameRef}/>
-            <button type="button" onClick={addColor}>Add Color</button>
-          </div>
-
-          <div>
-            <label htmlFor="swatchCount">Steps</label>
-            <input
-              id="swatchCount"
-              type="number"
-              min="3"
-              max="64"
-              value={colorSteps}
-              onChange={(e) => setColorSteps(Number(e.target.value))}
-            />
-            <label htmlFor="lightestDark">Lightest Dark</label>
-            <input
-              id="lightestDark"
-              type="number"
-              min="0.01"
-              max="0.45"
-              step="0.01"
-              value={lightestDark}
-              onChange={(e) => setLightestDark(Number(e.target.value))}
-            />
-            <label htmlFor="darkestLight">Darkest Light</label>
-            <input
-              id="darkestLight"
-              type="number"
-              min="0.65"
-              max="1.1"
-              step="0.01"
-              value={darkestLight}
-              onChange={(e) => setDarkestLight(Number(e.target.value))}
-            />
-          </div>
+      <div className={s.configForm}>
+        <div>
+          <input type="color" ref={colorRef}/>
+          <input type="text" ref={nameRef}/>
+          <button type="button" onClick={addColor}>Add Color</button>
         </div>
-      )}
+
+        <div>
+          <label htmlFor="swatchCount">Steps</label>
+          <input
+            id="swatchCount"
+            type="number"
+            min="3"
+            max="64"
+            value={colorSteps}
+            onChange={(e) => setColorSteps(Number(e.target.value))}
+          />
+          <label htmlFor="lightestDark">Lightest Dark</label>
+          <input
+            id="lightestDark"
+            type="number"
+            min="0.01"
+            max="0.45"
+            step="0.01"
+            value={lightestDark}
+            onChange={(e) => setLightestDark(Number(e.target.value))}
+          />
+          <label htmlFor="darkestLight">Darkest Light</label>
+          <input
+            id="darkestLight"
+            type="number"
+            min="0.65"
+            max="1.1"
+            step="0.01"
+            value={darkestLight}
+            onChange={(e) => setDarkestLight(Number(e.target.value))}
+          />
+        </div>
+      </div>
+      
       {!!colors.length && (
         <div className={s.appBody}>
           <div>
