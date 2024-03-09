@@ -43,6 +43,10 @@ export default function ColorApp() {
     setColors(newColors);
   }
 
+  const submitOnEnter = (e) => {
+    e.key === 'Enter' && addColor();
+  }
+
   return (
     <main className={s.colorApp}>
       <div className={s.appBody}>
@@ -92,20 +96,24 @@ export default function ColorApp() {
           <h3>Colors</h3>
           <div className={s.colorList}>
             <div className={colorForm}>
-              <input placeholder="Color name" type="text" ref={nameRef} autoFocus={true}/>
               <input type="color" ref={colorRef}/>
+              <input placeholder="Color name" type="text" ref={nameRef} autoFocus={true} onKeyPress={submitOnEnter}/>
               <button type="button" onClick={addColor}>+</button>
             </div>
-            {colors.map((color, i) => (
-              <ColorElement
-                key={color.name+color.color}
-                color={color.color}
-                name={color.name}
-                index={i}
-                removeColor={removeColor}
-                editColor={editColor}
-              />
-            ))}
+            <div>
+              <div>
+                {colors.map((color, i) => (
+                  <ColorElement
+                    key={color.name+color.color}
+                    color={color.color}
+                    name={color.name}
+                    index={i}
+                    removeColor={removeColor}
+                    editColor={editColor}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
         <div className={`${s.colorExamples} panel`}>
