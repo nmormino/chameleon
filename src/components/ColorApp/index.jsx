@@ -47,14 +47,15 @@ export default function ColorApp() {
     <main className={s.colorApp}>
       {!!colors.length && (
         <div className={s.appBody}>
-          <div className={s.column}>
+          <div className={`${s.column} panel`}>
             <header>
               <h1>Welcome to Chameleon</h1>
             </header>
-            <h2>Settings</h2>
+            <h3>Settings</h3>
             <div className={s.setting}>
               <label htmlFor="swatchCount">Steps</label>
               <input
+                className={s.settingInput}
                 id="swatchCount"
                 type="number"
                 min="3"
@@ -66,6 +67,7 @@ export default function ColorApp() {
             <div className={s.setting}>
               <label htmlFor="lightestDark">Lightest Dark</label>
               <input
+                className={s.settingInput}
                 id="lightestDark"
                 type="number"
                 min="0.01"
@@ -78,6 +80,7 @@ export default function ColorApp() {
             <div className={s.setting}>
               <label htmlFor="darkestLight">Darkest Light</label>
               <input
+                className={s.settingInput}
                 id="darkestLight"
                 type="number"
                 min="0.65"
@@ -87,7 +90,7 @@ export default function ColorApp() {
                 onChange={(e) => setDarkestLight(Number(e.target.value))}
               />
             </div>
-            <h2>Colors</h2>
+            <h3>Colors</h3>
             <div className={s.colorList}>
               <div className={colorForm}>
                 <input placeholder="Color name" type="text" ref={nameRef} autoFocus={true}/>
@@ -106,7 +109,7 @@ export default function ColorApp() {
               ))}
             </div>
           </div>
-          <div className={s.colorExamples}>
+          <div className={`${s.colorExamples} panel`}>
             {colors.map((color, i) => (
               <ColorExample
                 key={color.name+color.color}

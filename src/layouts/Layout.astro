@@ -26,9 +26,9 @@ const { title } = Astro.props;
 <style is:global>
 
 	:root {
-		--color-bg: #ffffff;
+		--color-bg: #eeeeee;
 		--color-txt: #000000;
-
+		--color-panel-bg: #ffffff;
 		--input-border-color: #777777;
 		--input-bg-color: #ffffff;
 		--input-color: #000000;
@@ -41,6 +41,7 @@ const { title } = Astro.props;
 	@media (prefers-color-scheme: dark) {
 		:root {
 			--color-bg: #000000;
+			--color-panel-bg: #111111;
 			--color-txt: #ffffff;
 
 			--input-border-color: #444444;
@@ -54,9 +55,9 @@ const { title } = Astro.props;
 	}
 
 	*:focus {
-			outline: 1px dashed var(--color-txt);
-			outline-offset: 1px;
-		}
+		outline: 1px dashed var(--color-txt);
+		outline-offset: 1px;
+	}
 	html, body {
 		background-color: var(--color-bg);
 		color: var(--color-txt);
@@ -71,6 +72,11 @@ const { title } = Astro.props;
 		display: flex;
 		flex-direction: column;
 	}
+	.panel {
+		background-color: var(--color-panel-bg);
+		padding: 10px;
+		border-radius: 6px;
+	}
 	main {
 		font-size: 1.6rem;
 	}
@@ -81,6 +87,11 @@ const { title } = Astro.props;
 		color: var(--input-color);
 		border-radius: 0px;
 		flex-grow: 1;
+		border-radius: 3px;
+	}
+
+	input:not([type="color"]){
+		padding: 6px 8px;
 	}
 	input[type=color] {
 		width: 30px;
