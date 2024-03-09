@@ -45,84 +45,82 @@ export default function ColorApp() {
 
   return (
     <main className={s.colorApp}>
-      {!!colors.length && (
-        <div className={s.appBody}>
-          <div className={`${s.column} panel`}>
-            <header>
-              <h1>Welcome to Chameleon</h1>
-            </header>
-            <h3>Settings</h3>
-            <div className={s.setting}>
-              <label htmlFor="swatchCount">Steps</label>
-              <input
-                className={s.settingInput}
-                id="swatchCount"
-                type="number"
-                min="3"
-                max="64"
-                value={colorSteps}
-                onChange={(e) => setColorSteps(Number(e.target.value))}
-              />
-            </div>
-            <div className={s.setting}>
-              <label htmlFor="lightestDark">Lightest Dark</label>
-              <input
-                className={s.settingInput}
-                id="lightestDark"
-                type="number"
-                min="0.01"
-                max="0.45"
-                step="0.01"
-                value={lightestDark}
-                onChange={(e) => setLightestDark(Number(e.target.value))}
-              />
-            </div>
-            <div className={s.setting}>
-              <label htmlFor="darkestLight">Darkest Light</label>
-              <input
-                className={s.settingInput}
-                id="darkestLight"
-                type="number"
-                min="0.65"
-                max="1.15"
-                step="0.01"
-                value={darkestLight}
-                onChange={(e) => setDarkestLight(Number(e.target.value))}
-              />
-            </div>
-            <h3>Colors</h3>
-            <div className={s.colorList}>
-              <div className={colorForm}>
-                <input placeholder="Color name" type="text" ref={nameRef} autoFocus={true}/>
-                <input type="color" ref={colorRef}/>
-                <button type="button" onClick={addColor}>+</button>
-              </div>
-              {colors.map((color, i) => (
-                <ColorElement
-                  key={color.name+color.color}
-                  color={color.color}
-                  name={color.name}
-                  index={i}
-                  removeColor={removeColor}
-                  editColor={editColor}
-                />
-              ))}
-            </div>
+      <div className={s.appBody}>
+        <div className={`${s.column} panel`}>
+          <header>
+            <h1>Welcome to Chameleon</h1>
+          </header>
+          <h3>Settings</h3>
+          <div className={s.setting}>
+            <label htmlFor="swatchCount">Steps</label>
+            <input
+              className={s.settingInput}
+              id="swatchCount"
+              type="number"
+              min="3"
+              max="64"
+              value={colorSteps}
+              onChange={(e) => setColorSteps(Number(e.target.value))}
+            />
           </div>
-          <div className={`${s.colorExamples} panel`}>
+          <div className={s.setting}>
+            <label htmlFor="lightestDark">Lightest Dark</label>
+            <input
+              className={s.settingInput}
+              id="lightestDark"
+              type="number"
+              min="0.01"
+              max="0.45"
+              step="0.01"
+              value={lightestDark}
+              onChange={(e) => setLightestDark(Number(e.target.value))}
+            />
+          </div>
+          <div className={s.setting}>
+            <label htmlFor="darkestLight">Darkest Light</label>
+            <input
+              className={s.settingInput}
+              id="darkestLight"
+              type="number"
+              min="0.65"
+              max="1.15"
+              step="0.01"
+              value={darkestLight}
+              onChange={(e) => setDarkestLight(Number(e.target.value))}
+            />
+          </div>
+          <h3>Colors</h3>
+          <div className={s.colorList}>
+            <div className={colorForm}>
+              <input placeholder="Color name" type="text" ref={nameRef} autoFocus={true}/>
+              <input type="color" ref={colorRef}/>
+              <button type="button" onClick={addColor}>+</button>
+            </div>
             {colors.map((color, i) => (
-              <ColorExample
+              <ColorElement
                 key={color.name+color.color}
                 color={color.color}
                 name={color.name}
-                lightestDark={lightestDark}
-                darkestLight={darkestLight}
-                colorSteps={colorSteps}
+                index={i}
+                removeColor={removeColor}
+                editColor={editColor}
               />
             ))}
           </div>
-        </div>)
-      }
+        </div>
+        <div className={`${s.colorExamples} panel`}>
+          {colors.map((color, i) => (
+            <ColorExample
+              key={color.name+color.color}
+              color={color.color}
+              name={color.name}
+              lightestDark={lightestDark}
+              darkestLight={darkestLight}
+              colorSteps={colorSteps}
+            />
+          ))}
+        </div>
+      </div>
     </main>
   )
 }
