@@ -28,19 +28,40 @@ const { title } = Astro.props;
 	:root {
 		--color-bg: #ffffff;
 		--color-txt: #000000;
+
+		--input-border-color: #777777;
+		--input-bg-color: #ffffff;
+		--input-color: #000000;
+
+		--button-bg-color: #dddddd;
+		--button-border-color: #cccccc;
+		--button-color: #111111;
 	}
 
 	@media (prefers-color-scheme: dark) {
 		:root {
 			--color-bg: #000000;
 			--color-txt: #ffffff;
+
+			--input-border-color: #444444;
+			--input-bg-color: #222222;
+			--input-color: #ffffff;
+
+			--button-bg-color: #111111;
+			--button-border-color: #333333;
+			--button-color: #ffffff;
 		}
 	}
+
+	*:focus {
+			outline: 1px dashed var(--color-txt);
+			outline-offset: 1px;
+		}
 	html, body {
 		background-color: var(--color-bg);
 		color: var(--color-txt);
 		font-size: 62.5%;
-		padding: 0;
+		padding: 10px;
 		margin: 0;
 		font-family: "Noto Sans", sans-serif;
 		font-optical-sizing: auto;
@@ -52,5 +73,28 @@ const { title } = Astro.props;
 	}
 	main {
 		font-size: 1.6rem;
+	}
+
+	input {
+		border: 1px solid var(--input-border-color);
+		background-color: var(--input-bg-color);
+		color: var(--input-color);
+		border-radius: 0px;
+		flex-grow: 1;
+	}
+	input[type=color] {
+		width: 30px;
+		flex-grow: 0;
+		flex-shrink: 0;
+	}
+	label {
+		flex-grow: 2;
+	}
+	button, input[type="submit"] {
+		border: 1px solid var(--button-border-color);
+		background-color: var(--button-bg-color);
+		color: var(--button-color);
+		border-radius: 0px;
+		cursor: pointer;
 	}
 </style>

@@ -5,7 +5,7 @@ import ColorExample from '../ColorExample';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 import * as s from './ColorApp.module.css';
-
+import { colorForm } from "../ColorElement/ColorElement.module.css";
 export default function ColorApp() {
 
   const [colorSteps, setColorSteps] = useLocalStorage('colorSteps', 5);
@@ -22,7 +22,7 @@ export default function ColorApp() {
     const color = colorRef.current.value;
     const name = nameRef.current.value;
 
-    setColors([...colors, {name, color} ]);
+    setColors([{name, color}, ...colors ]);
 
     colorRef.current.value = '';
     nameRef.current.value = '';
@@ -45,66 +45,58 @@ export default function ColorApp() {
 
   return (
     <main className={s.colorApp}>
-      <div className={s.configForm}>
-        <div>
-          <input type="color" ref={colorRef}/>
-          <input type="text" ref={nameRef}/>
-          <button type="button" onClick={addColor}>Add Color</button>
-        </div>
-
-        <div>
-          <label htmlFor="swatchCount">Steps</label>
-          <input
-            id="swatchCount"
-            type="number"
-            min="3"
-            max="64"
-            value={colorSteps}
-            onChange={(e) => setColorSteps(Number(e.target.value))}
-          />
-          <label htmlFor="lightestDark">Lightest Dark</label>
-          <input
-            id="lightestDark"
-            type="number"
-            min="0.01"
-            max="0.45"
-            step="0.01"
-            value={lightestDark}
-            onChange={(e) => setLightestDark(Number(e.target.value))}
-          />
-          <label htmlFor="darkestLight">Darkest Light</label>
-          <input
-            id="darkestLight"
-            type="number"
-            min="0.65"
-            max="1.15"
-            step="0.01"
-            value={darkestLight}
-            onChange={(e) => setDarkestLight(Number(e.target.value))}
-          />
-        </div>
-      </div>
-
       {!!colors.length && (
         <div className={s.appBody}>
-          <div>
-            <h1>Colors</h1>
-            <ul
-              className={s.colorList}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => {
-                e.preventDefault();
-                const fromIndex = Number(e.dataTransfer.getData('text/plain'));
-                const toIndex = colors.length - 1;
-                const newColors = [...colors];
-                const [removed] = newColors.splice(fromIndex, 1);
-                newColors.splice(toIndex, 0, removed);
-                setColors(newColors);
-              }}
-            >
+          <div className={s.column}>
+            <header>
+              <h1>Welcome to Chameleon</h1>
+            </header>
+            <h2>Settings</h2>
+            <div className={s.setting}>
+              <label htmlFor="swatchCount">Steps</label>
+              <input
+                id="swatchCount"
+                type="number"
+                min="3"
+                max="64"
+                value={colorSteps}
+                onChange={(e) => setColorSteps(Number(e.target.value))}
+              />
+            </div>
+            <div className={s.setting}>
+              <label htmlFor="lightestDark">Lightest Dark</label>
+              <input
+                id="lightestDark"
+                type="number"
+                min="0.01"
+                max="0.45"
+                step="0.01"
+                value={lightestDark}
+                onChange={(e) => setLightestDark(Number(e.target.value))}
+              />
+            </div>
+            <div className={s.setting}>
+              <label htmlFor="darkestLight">Darkest Light</label>
+              <input
+                id="darkestLight"
+                type="number"
+                min="0.65"
+                max="1.15"
+                step="0.01"
+                value={darkestLight}
+                onChange={(e) => setDarkestLight(Number(e.target.value))}
+              />
+            </div>
+            <h2>Colors</h2>
+            <div className={s.colorList}>
+              <div className={colorForm}>
+                <input placeholder="Color name" type="text" ref={nameRef} autoFocus={true}/>
+                <input type="color" ref={colorRef}/>
+                <button type="button" onClick={addColor}>+</button>
+              </div>
               {colors.map((color, i) => (
                 <ColorElement
-                  key={i}
+                  key={color.name+color.color}
                   color={color.color}
                   name={color.name}
                   index={i}
@@ -112,12 +104,12 @@ export default function ColorApp() {
                   editColor={editColor}
                 />
               ))}
-            </ul>
+            </div>
           </div>
           <div className={s.colorExamples}>
             {colors.map((color, i) => (
               <ColorExample
-                key={i}
+                key={color.name+color.color}
                 color={color.color}
                 name={color.name}
                 lightestDark={lightestDark}

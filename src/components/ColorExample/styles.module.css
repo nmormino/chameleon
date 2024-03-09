@@ -11,6 +11,8 @@
   font-size: 1.2rem;
   font-weight: 600;
   transition: transform 0.3s ease-in-out;
+  text-overflow: ellipsis;
+  overflow: hidden;
   
   &:hover {
     transform: scale(1.2);

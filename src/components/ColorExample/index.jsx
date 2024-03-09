@@ -17,6 +17,7 @@ const ColorExample = ({name, color, lightestDark, darkestLight, colorSteps}) => 
         colorSteps
       ).map(hue => (
         <div 
+          key={hue.join('')}
           title={`oklch(${hue[0].toFixed(2)} ${hue[1].toFixed(2)} ${hue[2].toFixed(2)})`}
           className={s.colorSpot} 
           style={{

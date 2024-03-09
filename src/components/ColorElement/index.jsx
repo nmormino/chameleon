@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import * as s from "./ColorElement.module.css";
 
 const ColorElement = ({ color, name, index, removeColor, editColor }) => {
   const colorRef = useRef(null);
@@ -12,23 +13,13 @@ const ColorElement = ({ color, name, index, removeColor, editColor }) => {
   };
 
   return (
-    <li
-      key={index}
-      draggable
-      onDragStart={(e) => {
-        e.dataTransfer.setData('text/plain', String(index));
-      }}
-    >
-      <div style={{ backgroundColor: color }}></div>
-      <input type="color" defaultValue={color} ref={colorRef} />
-      <input type="text" defaultValue={name} ref={nameRef} />
+    <div className={s.colorForm}>
+      <input placeholder="Color name" type="text" defaultValue={name} ref={nameRef} onBlur={handleEdit}/>
+      <input type="color" defaultValue={color} ref={colorRef} onChange={handleEdit}/>
       <button type="button" onClick={() => removeColor(index)}>
         &times;
       </button>
-      <button type="button" onClick={handleEdit}>
-        &#x2713;
-      </button>
-    </li>
+    </div>
   );
 };
 
