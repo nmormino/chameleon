@@ -2,15 +2,22 @@ import { useRef } from 'react';
 
 import ColorElement from '../ColorElement';
 import ColorExample from '../ColorExample';
+import ColorCssCustomProperty from '../ColorCssCustomProperty';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 import * as s from './ColorApp.module.css';
 import { colorForm } from "../ColorElement/ColorElement.module.css";
 export default function ColorApp() {
 
+  const [useOpacity, setUseOpacity] = useLocalStorage('useOpacity', true);
   const [colorSteps, setColorSteps] = useLocalStorage('colorSteps', 5);
   const [lightestDark, setLightestDark] = useLocalStorage('lightestDark', 0.01);
   const [darkestLight, setDarkestLight] = useLocalStorage('darkestLight', 1.1);
+  const [opacitySteps, setOpacitySteps] = useLocalStorage('opacitySteps', 5);
+  const [minOpacity, setMinOpacity] = useLocalStorage('minOpacity', .1);
+  const [maxOpacity, setMaxOpacity] = useLocalStorage('maxOpacity', .9);
+
+
   const [colors, setColors] = useLocalStorage('colors', []);
 
   const colorRef = useRef(null);
@@ -56,7 +63,7 @@ export default function ColorApp() {
           </header>
           <h3>Settings</h3>
           <div className={s.setting}>
-            <label htmlFor="swatchCount">Steps</label>
+            <label htmlFor="swatchCount">Color steps</label>
             <input
               className={s.settingInput}
               id="swatchCount"
@@ -68,7 +75,7 @@ export default function ColorApp() {
             />
           </div>
           <div className={s.setting}>
-            <label htmlFor="lightestDark">Lightest Dark</label>
+            <label htmlFor="lightestDark">Lightest dark</label>
             <input
               className={s.settingInput}
               id="lightestDark"
@@ -81,7 +88,7 @@ export default function ColorApp() {
             />
           </div>
           <div className={s.setting}>
-            <label htmlFor="darkestLight">Darkest Light</label>
+            <label htmlFor="darkestLight">Darkest light</label>
             <input
               className={s.settingInput}
               id="darkestLight"
@@ -93,6 +100,58 @@ export default function ColorApp() {
               onChange={(e) => setDarkestLight(Number(e.target.value))}
             />
           </div>
+          <div className={s.setting}>
+            <label htmlFor="useOpacity">
+              <input id="useOpacity" type="checkbox" checked={useOpacity} onChange={() => setUseOpacity(!useOpacity)}/>
+              Use opacity
+            </label>
+          </div>
+          
+
+          {useOpacity && (
+            <>
+              <div className={s.setting}>
+                <label htmlFor="opacitySteps">Opacity steps</label>
+                <input
+                  className={s.settingInput}
+                  id="opacitySteps"
+                  type="number"
+                  min="3"
+                  max="20"
+                  step="1"
+                  value={opacitySteps}
+                  onChange={(e) => setOpacitySteps(Number(e.target.value))}
+                />
+              </div>
+              <div className={s.setting}>
+                <label htmlFor="minOpacity">Min opacity</label>
+                <input
+                  className={s.settingInput}
+                  id="minOpacity"
+                  type="number"
+                  min="0.01"
+                  max=".25"
+                  step=".01"
+                  value={minOpacity}
+                  onChange={(e) => setMinOpacity(Number(e.target.value))}
+                />
+              </div>
+              <div className={s.setting}>
+                <label htmlFor="maxOpacity">Max opacity</label>
+                <input
+                  className={s.settingInput}
+                  id="maxOpacity"
+                  type="number"
+                  min=".75"
+                  max="1"
+                  step=".01"
+                  value={maxOpacity}
+                  onChange={(e) => setMaxOpacity(Number(e.target.value))}
+                />
+              </div>
+            </>
+          )}
+
           <h3>Colors</h3>
           <div className={s.colorList}>
             <div className={colorForm}>
@@ -116,8 +175,9 @@ export default function ColorApp() {
             </div>
           </div>
         </div>
-        <div className={`${s.colorExamples} panel`}>
-          {colors.map((color, i) => (
+        <div className={`${s.colorExamples} panel checkerboardBackground`}>
+          <h3>Swatches</h3>
+          {colors.map((color) => (
             <ColorExample
               key={color.name+color.color}
               color={color.color}
@@ -125,6 +185,25 @@ export default function ColorApp() {
               lightestDark={lightestDark}
               darkestLight={darkestLight}
               colorSteps={colorSteps}
+              useOpacity={useOpacity}
+              opacitySteps={opacitySteps}
+              minOpacity={minOpacity}
+              maxOpacity={maxOpacity}
+            />
+          ))}
+          <h3>CSS Custom properties</h3>
+          {colors.map((color) => (
+            <ColorCssCustomProperty
+              key={color.name+color.color}
+              color={color.color}
+              name={color.name}
+              lightestDark={lightestDark}
+              darkestLight={darkestLight}
+              colorSteps={colorSteps}
+              useOpacity={useOpacity}
+              opacitySteps={opacitySteps}
+              minOpacity={minOpacity}
+              maxOpacity={maxOpacity}
             />
           ))}
         </div>

@@ -14,7 +14,7 @@ const ColorElement = ({ color, name, index, removeColor, editColor }) => {
 
   return (
     <div className={s.colorForm}>
-      <input type="color" defaultValue={color} ref={colorRef} onChange={handleEdit}/>
+      <input type="color" defaultValue={color} ref={colorRef} onBlur={handleEdit}/>
       <input placeholder="Color name" type="text" defaultValue={name} ref={nameRef} onBlur={handleEdit}/>
       <button type="button" onClick={() => removeColor(index)}>
         &times;

@@ -1,3 +1,9 @@
+.colors {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .colorSpot {
   width: 100px;
   padding: 5px;
@@ -15,10 +21,12 @@
   
   &:hover {
     transform: scale(1.2);
+    z-index: 2;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.25);
   }
 }
 .colorPanel {
   white-space: nowrap;
   display:flex;
-  gap:5px;
+  gap:15px;
 }

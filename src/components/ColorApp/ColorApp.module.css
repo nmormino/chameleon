@@ -49,14 +49,20 @@ h1 {
   justify-content: space-between;
   margin-bottom: 3px;
 }
-.setting input {
+.setting input:not([type="checkbox"]) {
   width: 50px;
   flex-grow: 0;
+}
+.setting input[type="checkbox"] {
+  margin-right: 12px;
 }
 
 .colorExamples {
   overflow: auto;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 label {
