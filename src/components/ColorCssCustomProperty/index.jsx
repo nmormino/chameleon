@@ -7,8 +7,6 @@ import * as s from "./styles.module.css";
 const ColorCssCustomProperty = ({
   name,
   color,
-  lightestDark,
-  darkestLight,
   colorSteps,
   useOpacity,
   opacitySteps,
@@ -18,12 +16,13 @@ const ColorCssCustomProperty = ({
   const cssName = name.replace(/\W+/g, " ").split(/ |\B(?=[A-Z])/).join('-').toLowerCase();
   const chromaColor = chroma(color);
   const colors = getShades(
-    chromaColor.oklch()[1], 
-    chromaColor.oklch()[2], 
-    lightestDark, 
-    darkestLight, 
+    chromaColor.oklch()[0],
+    chromaColor.oklch()[1],
+    chromaColor.oklch()[2],
     colorSteps
-  )
+  );
+  // remove the first color, which is the color picked.
+  colors.shift();
 
   const opacities = useOpacity ? getOpacities(minOpacity, maxOpacity, opacitySteps) : [1];
   

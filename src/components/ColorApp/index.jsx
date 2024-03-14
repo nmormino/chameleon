@@ -3,22 +3,20 @@ import { useRef } from 'react';
 import ColorElement from '../ColorElement';
 import ColorExample from '../ColorExample';
 import ColorCssCustomProperty from '../ColorCssCustomProperty';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import useQueryString from '../../hooks/useQueryString';
 
 import * as s from './ColorApp.module.css';
 import { colorForm } from "../ColorElement/ColorElement.module.css";
 export default function ColorApp() {
 
-  const [useOpacity, setUseOpacity] = useLocalStorage('useOpacity', true);
-  const [colorSteps, setColorSteps] = useLocalStorage('colorSteps', 5);
-  const [lightestDark, setLightestDark] = useLocalStorage('lightestDark', 0.01);
-  const [darkestLight, setDarkestLight] = useLocalStorage('darkestLight', 1.1);
-  const [opacitySteps, setOpacitySteps] = useLocalStorage('opacitySteps', 5);
-  const [minOpacity, setMinOpacity] = useLocalStorage('minOpacity', .1);
-  const [maxOpacity, setMaxOpacity] = useLocalStorage('maxOpacity', .9);
+  const [useOpacity, setUseOpacity] = useQueryString('useOpacity', true);
+  const [colorSteps, setColorSteps] = useQueryString('colorSteps', 5);
+  const [opacitySteps, setOpacitySteps] = useQueryString('opacitySteps', 5);
+  const [minOpacity, setMinOpacity] = useQueryString('minOpacity', .1);
+  const [maxOpacity, setMaxOpacity] = useQueryString('maxOpacity', .9);
 
 
-  const [colors, setColors] = useLocalStorage('colors', []);
+  const [colors, setColors] = useQueryString('colors', []);
 
   const colorRef = useRef(null);
   const nameRef = useRef(null);
@@ -59,7 +57,10 @@ export default function ColorApp() {
       <div className={s.appBody}>
         <div className={`${s.column} panel`}>
           <header>
-            <h1>Welcome to Chameleon</h1>
+            <h1>
+              <img src="/chameleon/favicon.svg" alt="Chameleon" width="32" height="32" />
+              Welcome to Chameleon
+            </h1>
           </header>
           <h3>Settings</h3>
           <div className={s.setting}>
@@ -68,36 +69,10 @@ export default function ColorApp() {
               className={s.settingInput}
               id="swatchCount"
               type="number"
-              min="3"
-              max="64"
+              min="8"
+              max="32"
               value={colorSteps}
               onChange={(e) => setColorSteps(Number(e.target.value))}
-            />
-          </div>
-          <div className={s.setting}>
-            <label htmlFor="lightestDark">Lightest dark</label>
-            <input
-              className={s.settingInput}
-              id="lightestDark"
-              type="number"
-              min="0.01"
-              max="0.45"
-              step="0.01"
-              value={lightestDark}
-              onChange={(e) => setLightestDark(Number(e.target.value))}
-            />
-          </div>
-          <div className={s.setting}>
-            <label htmlFor="darkestLight">Darkest light</label>
-            <input
-              className={s.settingInput}
-              id="darkestLight"
-              type="number"
-              min="0.65"
-              max="1.15"
-              step="0.01"
-              value={darkestLight}
-              onChange={(e) => setDarkestLight(Number(e.target.value))}
             />
           </div>
           <div className={s.setting}>
@@ -182,8 +157,6 @@ export default function ColorApp() {
               key={color.name+color.color}
               color={color.color}
               name={color.name}
-              lightestDark={lightestDark}
-              darkestLight={darkestLight}
               colorSteps={colorSteps}
               useOpacity={useOpacity}
               opacitySteps={opacitySteps}
@@ -197,8 +170,6 @@ export default function ColorApp() {
               key={color.name+color.color}
               color={color.color}
               name={color.name}
-              lightestDark={lightestDark}
-              darkestLight={darkestLight}
               colorSteps={colorSteps}
               useOpacity={useOpacity}
               opacitySteps={opacitySteps}

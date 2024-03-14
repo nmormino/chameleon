@@ -6,8 +6,6 @@ import * as s from "./styles.module.css";
 const ColorExample = ({
   name,
   color,
-  lightestDark,
-  darkestLight,
   colorSteps,
   useOpacity,
   opacitySteps,
@@ -17,12 +15,11 @@ const ColorExample = ({
 
   const chromaColor = chroma(color);
   const colors = getShades(
-    chromaColor.oklch()[1], 
-    chromaColor.oklch()[2], 
-    lightestDark, 
-    darkestLight, 
+    chromaColor.oklch()[0],
+    chromaColor.oklch()[1],
+    chromaColor.oklch()[2],
     colorSteps
-  )
+  );
 
   const opacities = useOpacity ? getOpacities(minOpacity, maxOpacity, opacitySteps) : [1];
 
@@ -30,9 +27,9 @@ const ColorExample = ({
     <div className={s.colors}>
       {opacities.map(opacity => (
         <div className={s.colorPanel} key={opacity}>
-          {colors.map(color => (
+          {colors.map((color, i) => (
             <div 
-              key={JSON.stringify([...color, opacity])}
+              key={JSON.stringify([...color, opacity, i])}
               className={s.colorSpot}
               title={`oklch(${color.join(' ')})`}
               style={{
@@ -40,7 +37,7 @@ const ColorExample = ({
                 color: color[0] > .50 ? 'black' : 'white',
               }}
             >
-              {name}
+              oklch({color.join(' ')} / {opacity})<br/>
             </div>
           ))}
         </div>
