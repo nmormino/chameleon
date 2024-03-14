@@ -10,10 +10,10 @@ import { colorForm } from "../ColorElement/ColorElement.module.css";
 export default function ColorApp() {
 
   const [useOpacity, setUseOpacity] = useQueryString('useOpacity', true);
-  const [colorSteps, setColorSteps] = useQueryString('colorSteps', 5);
+  const [colorSteps, setColorSteps] = useQueryString('colorSteps', 8);
   const [opacitySteps, setOpacitySteps] = useQueryString('opacitySteps', 5);
   const [minOpacity, setMinOpacity] = useQueryString('minOpacity', .1);
-  const [maxOpacity, setMaxOpacity] = useQueryString('maxOpacity', .9);
+  const [maxOpacity, setMaxOpacity] = useQueryString('maxOpacity', 1);
 
 
   const [colors, setColors] = useQueryString('colors', []);
