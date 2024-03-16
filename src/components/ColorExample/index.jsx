@@ -1,5 +1,5 @@
 import chroma from "chroma-js";
-import { getShades, getOpacities } from "../../utils/colors";
+import { getShades, getOpacities, getTextColor } from "../../utils/colors";
 
 import * as s from "./styles.module.css";
 
@@ -14,12 +14,7 @@ const ColorExample = ({
 }) => {
 
   const chromaColor = chroma(color);
-  const colors = getShades(
-    chromaColor.oklch()[0],
-    chromaColor.oklch()[1],
-    chromaColor.oklch()[2],
-    colorSteps
-  );
+  const colors = getShades(color, colorSteps);
 
   const opacities = useOpacity ? getOpacities(minOpacity, maxOpacity, opacitySteps) : [1];
 
@@ -31,13 +26,14 @@ const ColorExample = ({
             <div 
               key={JSON.stringify([...color, opacity, i])}
               className={s.colorSpot}
-              title={`oklch(${color.join(' ')})`}
+              title={`color`}
+              
               style={{
-                backgroundColor: 'oklch('+color.join(' ')+' / '+opacity+')',
-                color: color[0] > .50 ? 'black' : 'white',
+                backgroundColor: chroma(color).alpha(Number(opacity)).css(),
+                color: getTextColor(color),
               }}
             >
-              oklch({color.join(' ')} / {opacity})<br/>
+              {chroma(color).alpha(Number(opacity)).hex()}<br/>
             </div>
           ))}
         </div>

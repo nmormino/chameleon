@@ -14,15 +14,8 @@ const ColorCssCustomProperty = ({
   maxOpacity
 }) => {
   const cssName = name.replace(/\W+/g, " ").split(/ |\B(?=[A-Z])/).join('-').toLowerCase();
-  const chromaColor = chroma(color);
-  const colors = getShades(
-    chromaColor.oklch()[0],
-    chromaColor.oklch()[1],
-    chromaColor.oklch()[2],
-    colorSteps
-  );
+  const colors = getShades(color, colorSteps);
   // remove the first color, which is the color picked.
-  colors.shift();
 
   const opacities = useOpacity ? getOpacities(minOpacity, maxOpacity, opacitySteps) : [1];
   
@@ -30,11 +23,9 @@ const ColorCssCustomProperty = ({
     <>
       {opacities.map((opacity, o) => (
         <pre className={s.cssCustomProperty} key={opacity}>
-          /* {name} {useOpacity ? `opacity step ${o+1}` : '' } */<br/>
-          --color-{cssName}{useOpacity?`-o${o+1}`:''}: oklch({chromaColor.oklch().map((v) => v.toFixed(2)).join(' ')} / {parseFloat(opacity)});<br/>
           {colors.map((color, i) => (
-            <Fragment key={color.name+color.join('')+opacity}>
-              --color-{cssName}-{i+1}{useOpacity?`-o${o+1}`:''}: oklch({color.join(' ')} / {parseFloat(opacity)});<br/>
+            <Fragment key={color.name+color+opacity}>
+              --color-{cssName}-{i+1}{useOpacity?`-o${o+1}`:''}: {chroma(color).alpha(Number(opacity)).hex()};<br/>
             </Fragment>
           ))}
         </pre>

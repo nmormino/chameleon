@@ -7,6 +7,7 @@ import useQueryString from '../../hooks/useQueryString';
 
 import * as s from './ColorApp.module.css';
 import { colorForm } from "../ColorElement/ColorElement.module.css";
+
 export default function ColorApp() {
 
   const [useOpacity, setUseOpacity] = useQueryString('useOpacity', true);
@@ -18,18 +19,17 @@ export default function ColorApp() {
 
   const [colors, setColors] = useQueryString('colors', []);
 
-  const colorRef = useRef(null);
+  const colorRef = useRef('#ffffff');
   const nameRef = useRef(null);
 
   const addColor = () => {
     if(!colorRef.current || !nameRef.current) return;
-
     const color = colorRef.current.value;
     const name = nameRef.current.value;
-
+    console.log(name, color);
     setColors([{name, color}, ...colors ]);
 
-    colorRef.current.value = '';
+    colorRef.current.value = '#ffffff';
     nameRef.current.value = '';
   }
 
@@ -69,8 +69,8 @@ export default function ColorApp() {
               className={s.settingInput}
               id="swatchCount"
               type="number"
-              min="8"
-              max="32"
+              min="3"
+              max="24"
               value={colorSteps}
               onChange={(e) => setColorSteps(Number(e.target.value))}
             />
@@ -130,7 +130,7 @@ export default function ColorApp() {
           <h3>Colors</h3>
           <div className={s.colorList}>
             <div className={colorForm}>
-              <input type="color" ref={colorRef}/>
+              <input ref={colorRef} type="color" defaultValue="#ffffff" />
               <input placeholder="Color name" type="text" ref={nameRef} autoFocus={true} onKeyPress={submitOnEnter}/>
               <button type="button" onClick={addColor}>+</button>
             </div>
@@ -164,6 +164,7 @@ export default function ColorApp() {
               maxOpacity={maxOpacity}
             />
           ))}
+          
           <h3>CSS Custom properties</h3>
           {colors.map((color) => (
             <ColorCssCustomProperty
