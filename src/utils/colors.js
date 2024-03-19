@@ -34,12 +34,12 @@ export function getShades(hexColor, steps){
   return colors;
 }
 
-export function getTextColor(backgroundColor) {
-  const luminance = chroma(backgroundColor).luminance();
+export function getTextColor(hexcolor) {
+  //const luminance = chroma(backgroundColor).luminance();
 
   // this value is the standard WCAG contrast ratio
   // luminance for black = 0, for white = 1
-  if(luminance > 0.5) {
+ /* if(luminance > 0.5) {
       // if the luminance of background color is greater than 0.5 (more towards white), 
       // we should use black color for the text
       return "black";
@@ -47,7 +47,30 @@ export function getTextColor(backgroundColor) {
       // if the luminance of background color is less than or equals to 0.5 (more towards black), 
       // we should use white color for the text
       return "white";
-  }
+  }*/
+// If a leading # is provided, remove it
+	if (hexcolor.slice(0, 1) === '#') {
+		hexcolor = hexcolor.slice(1);
+	}
+
+	// If a three-character hexcode, make six-character
+	if (hexcolor.length === 3) {
+		hexcolor = hexcolor.split('').map(function (hex) {
+			return hex + hex;
+		}).join('');
+	}
+
+	// Convert to RGB value
+	let r = parseInt(hexcolor.substr(0,2),16);
+	let g = parseInt(hexcolor.substr(2,2),16);
+	let b = parseInt(hexcolor.substr(4,2),16);
+
+	// Get YIQ ratio
+	let yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+
+	// Check contrast
+	return (yiq >= 128) ? 'black' : 'white';
+
 }
 
 export const getDesignSystemTokens = (colors, lightestDark, darkestLight, colorSteps, useOpacity, opacitySteps, minOpacity, maxOpacity) => {
