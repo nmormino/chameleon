@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-
+import JsonURL from '@jsonurl/jsonurl';
 const useQueryString = (key, initialValue) => {
   const location = typeof window !== 'undefined' ? window.location : { search: '' };
   const queryParams = new URLSearchParams(location.search);
 
   const [state, setState] = useState(() => {
     const urlValue = queryParams.get(key);
-    return urlValue !== null ? JSON.parse(urlValue) : initialValue;
+    return urlValue !== null ? JsonURL.parse(urlValue, { AQF: true }) : initialValue;
   });
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const useQueryString = (key, initialValue) => {
 
     let valueToStore = state;
     if (Array.isArray(state) || typeof state === 'number') {
-      valueToStore = JSON.stringify(state);
+      valueToStore = JsonURL.stringify(state, { AQF: true });
     }
 
     url.searchParams.set(key, valueToStore);

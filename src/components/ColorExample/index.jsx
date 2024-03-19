@@ -1,11 +1,12 @@
 import chroma from "chroma-js";
-import { getShades, getOpacities, getTextColor } from "../../utils/colors";
+import { getShades, getOpacities, getTextColor, getFormattedColor } from "../../utils/colors";
 
 import * as s from "./styles.module.css";
 
 const ColorExample = ({
   name,
   color,
+  colorFunction,
   colorSteps,
   useOpacity,
   opacitySteps,
@@ -13,9 +14,7 @@ const ColorExample = ({
   maxOpacity
 }) => {
 
-  const chromaColor = chroma(color);
   const colors = getShades(color, colorSteps);
-
   const opacities = useOpacity ? getOpacities(minOpacity, maxOpacity, opacitySteps) : [1];
 
   return (
@@ -29,11 +28,11 @@ const ColorExample = ({
               title={`color`}
               
               style={{
-                backgroundColor: chroma(color).alpha(Number(opacity)).css(),
-                color: getTextColor(color),
+                backgroundColor: getFormattedColor(colorFunction, color, opacity),
+                color: getTextColor(getFormattedColor(colorFunction, color, opacity)),
               }}
             >
-              {chroma(color).alpha(Number(opacity)).hex()}<br/>
+              {getFormattedColor(colorFunction, color, opacity)}<br/>
             </div>
           ))}
         </div>

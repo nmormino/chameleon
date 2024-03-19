@@ -76,3 +76,10 @@ export const getDesignSystemTokens = (colors, lightestDark, darkestLight, colorS
 
   return designSystemTokens;
 }
+
+export const getFormattedColor = (colorFunction, color, opacity) =>  {
+  if(colorFunction === 'hex') {
+    return chroma(color).alpha(Number(opacity)).hex()
+  }
+  return chroma(color).alpha(Number(opacity)).css(colorFunction);
+};

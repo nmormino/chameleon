@@ -89,13 +89,16 @@ const { title } = Astro.props;
 		font-size: 1.6rem;
 	}
 
-	input {
+	input, select {
 		border: 1px solid var(--input-border-color);
 		background-color: var(--input-bg-color);
 		color: var(--input-color);
 		border-radius: 0px;
 		flex-grow: 1;
 		border-radius: 3px;
+	}
+	select {
+		flex-grow: 0;
 	}
 
 	input:not([type="color"]){

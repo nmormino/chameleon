@@ -10,12 +10,13 @@ import { colorForm } from "../ColorElement/ColorElement.module.css";
 
 export default function ColorApp() {
 
+  const colorFunctions = ['rgb', 'hex', 'hsl' ];
   const [useOpacity, setUseOpacity] = useQueryString('useOpacity', true);
   const [colorSteps, setColorSteps] = useQueryString('colorSteps', 8);
   const [opacitySteps, setOpacitySteps] = useQueryString('opacitySteps', 5);
   const [minOpacity, setMinOpacity] = useQueryString('minOpacity', .1);
   const [maxOpacity, setMaxOpacity] = useQueryString('maxOpacity', 1);
-
+  const [colorFunction, setColorFunction] = useQueryString('colorFunction', 'hex');
 
   const [colors, setColors] = useQueryString('colors', []);
 
@@ -151,25 +152,34 @@ export default function ColorApp() {
           </div>
         </div>
         <div className={`${s.colorExamples} panel checkerboardBackground`}>
-          <h3>Swatches</h3>
-          {colors.map((color) => (
-            <ColorExample
-              key={color.name+color.color}
-              color={color.color}
-              name={color.name}
-              colorSteps={colorSteps}
-              useOpacity={useOpacity}
-              opacitySteps={opacitySteps}
-              minOpacity={minOpacity}
-              maxOpacity={maxOpacity}
-            />
-          ))}
-          
+          <h3>Swatches
+            <select defaultValue={colorFunction} onChange={(e) => setColorFunction(e.target.value)}>
+              {colorFunctions.map((f) => (
+                <option key={f} value={f}>{f}</option>
+              ))}
+            </select>
+          </h3>
+          <div className={s.colorExamples}>
+            {colors.map((color) => (
+              <ColorExample
+                key={color.name+color.color}
+                color={color.color}
+                colorFunction={colorFunction}
+                name={color.name}
+                colorSteps={colorSteps}
+                useOpacity={useOpacity}
+                opacitySteps={opacitySteps}
+                minOpacity={minOpacity}
+                maxOpacity={maxOpacity}
+              />
+            ))}
+          </div>
           <h3>CSS Custom properties</h3>
           {colors.map((color) => (
             <ColorCssCustomProperty
               key={color.name+color.color}
               color={color.color}
+              colorFunction={colorFunction}
               name={color.name}
               colorSteps={colorSteps}
               useOpacity={useOpacity}
