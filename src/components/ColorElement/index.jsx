@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import * as s from "./ColorElement.module.css";
 
 const ColorElement = ({ color, name, index, removeColor, editColor }) => {
@@ -23,4 +23,4 @@ const ColorElement = ({ color, name, index, removeColor, editColor }) => {
   );
 };
 
-export default ColorElement;
+export default memo(ColorElement);

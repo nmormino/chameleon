@@ -4,7 +4,6 @@ import { getShades, getOpacities, getTextColor, getFormattedColor } from "../../
 import * as s from "./styles.module.css";
 
 const ColorExample = ({
-  name,
   color,
   colorFunction,
   colorSteps,
@@ -26,7 +25,6 @@ const ColorExample = ({
               key={JSON.stringify([...color, opacity, i])}
               className={s.colorSpot}
               title={`color`}
-              
               style={{
                 backgroundColor: getFormattedColor(colorFunction, color, opacity),
                 color: getTextColor(getFormattedColor(colorFunction, color, opacity)),

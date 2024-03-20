@@ -10,7 +10,7 @@ import { colorForm } from "../ColorElement/ColorElement.module.css";
 
 export default function ColorApp() {
 
-  const colorFunctions = ['rgb', 'hex', 'hsl' ];
+  const colorFunctions = ['rgb', 'hex', 'hsl'];
   const [useOpacity, setUseOpacity] = useQueryString('useOpacity', true);
   const [colorSteps, setColorSteps] = useQueryString('colorSteps', 8);
   const [opacitySteps, setOpacitySteps] = useQueryString('opacitySteps', 5);
@@ -27,7 +27,6 @@ export default function ColorApp() {
     if(!colorRef.current || !nameRef.current) return;
     const color = colorRef.current.value;
     const name = nameRef.current.value;
-    console.log(name, color);
     setColors([{name, color}, ...colors ]);
 
     colorRef.current.value = '#ffffff';
@@ -52,7 +51,7 @@ export default function ColorApp() {
   const submitOnEnter = (e) => {
     e.key === 'Enter' && addColor();
   }
-
+  
   return (
     <main className={s.colorApp}>
       <div className={s.appBody}>
