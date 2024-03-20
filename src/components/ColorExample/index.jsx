@@ -27,7 +27,7 @@ const ColorExample = ({
               title={`color`}
               style={{
                 backgroundColor: getFormattedColor(colorFunction, color, opacity),
-                color: getTextColor(getFormattedColor(colorFunction, color, opacity)),
+                color: getTextColor(color),
               }}
             >
               {getFormattedColor(colorFunction, color, opacity)}<br/>
