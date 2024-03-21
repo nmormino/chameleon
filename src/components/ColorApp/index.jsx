@@ -2,6 +2,7 @@ import { useRef } from 'react';
 
 import ColorElement from '../ColorElement';
 import ColorExample from '../ColorExample';
+import ColorInput from '../ColorInput';
 import ColorCssCustomProperty from '../ColorCssCustomProperty';
 import useQueryString from '../../hooks/useQueryString';
 
@@ -55,124 +56,106 @@ export default function ColorApp() {
   return (
     <main className={s.colorApp}>
       <div className={s.appBody}>
-        <div className={`${s.column} panel`}>
-          <header>
+        <div className={`${s.colorExamples} panel checkerboardBackground`}>
+          <div className={s.colorForm}>
             <h1>
               <img src="/chameleon/favicon.svg" alt="Chameleon" width="32" height="32" />
-              Welcome to Chameleon
+              Chameleon
             </h1>
-          </header>
-          <h3>Settings</h3>
-          <div className={s.setting}>
-            <label htmlFor="swatchCount">Color steps</label>
-            <input
-              className={s.settingInput}
-              id="swatchCount"
-              type="number"
-              min="3"
-              max="24"
-              value={colorSteps}
-              onChange={(e) => setColorSteps(Number(e.target.value))}
-            />
-          </div>
-          <div className={s.setting}>
-            <label htmlFor="useOpacity">
-              <input id="useOpacity" type="checkbox" checked={useOpacity} onChange={() => setUseOpacity(!useOpacity)}/>
-              Use opacity
-            </label>
-          </div>
-          
-
-          {useOpacity && (
-            <>
-              <div className={s.setting}>
-                <label htmlFor="opacitySteps">Opacity steps</label>
-                <input
-                  className={s.settingInput}
-                  id="opacitySteps"
-                  type="number"
-                  min="3"
-                  max="20"
-                  step="1"
-                  value={opacitySteps}
-                  onChange={(e) => setOpacitySteps(Number(e.target.value))}
-                />
-              </div>
-              <div className={s.setting}>
-                <label htmlFor="minOpacity">Min opacity</label>
-                <input
-                  className={s.settingInput}
-                  id="minOpacity"
-                  type="number"
-                  min="0.01"
-                  max=".25"
-                  step=".01"
-                  value={minOpacity}
-                  onChange={(e) => setMinOpacity(Number(e.target.value))}
-                />
-              </div>
-              <div className={s.setting}>
-                <label htmlFor="maxOpacity">Max opacity</label>
-                <input
-                  className={s.settingInput}
-                  id="maxOpacity"
-                  type="number"
-                  min=".75"
-                  max="1"
-                  step=".01"
-                  value={maxOpacity}
-                  onChange={(e) => setMaxOpacity(Number(e.target.value))}
-                />
-              </div>
-            </>
-          )}
-
-          <h3>Colors</h3>
-          <div className={s.colorList}>
-            <div className={colorForm}>
-              <input ref={colorRef} type="color" defaultValue="#ffffff" />
-              <input placeholder="Color name" type="text" ref={nameRef} autoFocus={true} onKeyPress={submitOnEnter}/>
-              <button type="button" onClick={addColor}>+</button>
+            <div className="flexGrow"/>
+            <div className={s.setting}>
+              <label htmlFor="useOpacity" style={{paddingTop: '25px'}}>
+                <input id="useOpacity" type="checkbox" checked={useOpacity} onChange={() => setUseOpacity(!useOpacity)}/>
+                Use opacity
+              </label>
             </div>
-            <div>
-              <div>
-                {colors.map((color, i) => (
-                  <ColorElement
-                    key={color.name+color.color}
-                    color={color.color}
-                    name={color.name}
-                    index={i}
-                    removeColor={removeColor}
-                    editColor={editColor}
+
+            {useOpacity && (
+              <>
+                <div className={s.setting}>
+                  <label htmlFor="opacitySteps">Opacity steps</label>
+                  <input
+                    className={s.settingInput}
+                    id="opacitySteps"
+                    type="number"
+                    min="3"
+                    max="20"
+                    step="1"
+                    value={opacitySteps}
+                    onChange={(e) => setOpacitySteps(Number(e.target.value))}
                   />
+                </div>
+                <div className={s.setting}>
+                  <label htmlFor="minOpacity">Min opacity</label>
+                  <input
+                    className={s.settingInput}
+                    id="minOpacity"
+                    type="number"
+                    min="0.01"
+                    max=".25"
+                    step=".01"
+                    value={minOpacity}
+                    onChange={(e) => setMinOpacity(Number(e.target.value))}
+                  />
+                </div>
+                <div className={s.setting}>
+                  <label htmlFor="maxOpacity">Max opacity</label>
+                  <input
+                    className={s.settingInput}
+                    id="maxOpacity"
+                    type="number"
+                    min=".75"
+                    max="1"
+                    step=".01"
+                    value={maxOpacity}
+                    onChange={(e) => setMaxOpacity(Number(e.target.value))}
+                  />
+                </div>
+              </>
+            )}
+            <div className={s.setting}>
+              <label htmlFor="swatchCount">Color steps</label>
+              <input
+                className={s.settingInput}
+                id="swatchCount"
+                type="number"
+                min="3"
+                max="24"
+                value={colorSteps}
+                onChange={(e) => setColorSteps(Number(e.target.value))}
+              />
+            </div>
+            <div className={s.setting}>
+              <label htmlFor="colorFunction">Output</label>
+              <select id="colorFunction" name="colorFunction" defaultValue={colorFunction} onChange={(e) => setColorFunction(e.target.value)}>
+                {colorFunctions.map((f) => (
+                  <option key={f} value={f}>{f}</option>
                 ))}
-              </div>
+              </select>
             </div>
           </div>
-        </div>
-        <div className={`${s.colorExamples} panel checkerboardBackground`}>
-          <h3>Swatches
-            <select defaultValue={colorFunction} onChange={(e) => setColorFunction(e.target.value)}>
-              {colorFunctions.map((f) => (
-                <option key={f} value={f}>{f}</option>
-              ))}
-            </select>
-          </h3>
-          <div className={s.colorExamples}>
-            {colors.map((color) => (
-              <ColorExample
-                key={color.name+color.color}
-                color={color.color}
-                colorFunction={colorFunction}
-                name={color.name}
-                colorSteps={colorSteps}
-                useOpacity={useOpacity}
-                opacitySteps={opacitySteps}
-                minOpacity={minOpacity}
-                maxOpacity={maxOpacity}
-              />
-            ))}
+          <div className={s.setting}>
+            <div className={s.settingGroup}>
+              <input ref={colorRef} type="color" defaultValue="#ffffff" />
+              <input style={{width: '150px'}} placeholder="Name" type="text" ref={nameRef} autoFocus={true} onKeyPress={submitOnEnter}/>
+              <button type="button" onClick={addColor}>Add color</button>
+            </div>
           </div>
+          {colors.map((color, i) => (<ColorInput 
+            key={color.name+color.color}
+            color={color.color}
+            name={color.name}
+            index={i}
+            removeColor={removeColor}
+            colorFunction={colorFunction}
+            editColor={editColor}
+            colorSteps={colorSteps}
+            useOpacity={useOpacity}
+            opacitySteps={opacitySteps}
+            minOpacity={minOpacity}
+            maxOpacity={maxOpacity}
+          />))}
+
           <h3>CSS Custom properties</h3>
           {colors.map((color) => (
             <ColorCssCustomProperty

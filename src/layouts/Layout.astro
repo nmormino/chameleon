@@ -59,10 +59,9 @@ const { title } = Astro.props;
 	}
 	*:focus {
 		outline: 1px dashed var(--color-txt);
-		outline-offset: 1px;
+		outline-offset: 2px;
 	}
 	html, body {
-		background-color: var(--color-bg);
 		color: var(--color-txt);
 		font-size: 62.5%;
 		padding: 10px;
@@ -75,16 +74,15 @@ const { title } = Astro.props;
 		display: flex;
 		flex-direction: column;
 	}
-	.panel {
-		background-color: var(--color-panel-bg);
-		padding: 10px;
-		border-radius: 6px;
-	}
-
-	.checkerboardBackground {
+	body {
 		background-size: 20px 20px;
+		background-color: var(--color-panel-bg);
 		background-image: url("/chameleon/checkerboard.svg");
 	}
+	.panel {
+		padding: 10px;
+	}
+
 	main {
 		font-size: 1.6rem;
 	}
@@ -101,14 +99,16 @@ const { title } = Astro.props;
 		flex-grow: 0;
 	}
 
-	input:not([type="color"]){
-		padding: 6px 8px;
+	input:not([type="color"]), select, button, input[type="submit"] {
+		padding: 6px 12px;
+		border-radius: 8px;
 	}
 	input[type=color] {
 		width: 30px;
 		flex-grow: 0;
 		flex-shrink: 0;
 	}
+
 	label {
 		flex-grow: 2;
 	}
@@ -116,7 +116,20 @@ const { title } = Astro.props;
 		border: 1px solid var(--button-border-color);
 		background-color: var(--button-bg-color);
 		color: var(--button-color);
-		border-radius: 0px;
+		border-radius: 8px;
 		cursor: pointer;
+	}
+
+	button.circle {
+		border-radius: 50%;
+		width: 30px;
+		height: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.flexGrow {
+		flex-grow: 1;
 	}
 </style>
