@@ -1,6 +1,5 @@
 details.dialog {
   position: relative;
-  padding-right: 20px; /* Add padding for the chevron */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -8,7 +7,6 @@ details.dialog {
   position: static;
   border: 0;
 }
-
 
 details.dialog summary {
   list-style: none;
@@ -18,26 +16,41 @@ details.dialog summary {
   justify-content: space-between;
   padding: 8px;
   gap: 8px;
-  border-radius: 50px;
+  border-radius: 8px;
   cursor: pointer;
   background-color: var(--color-bg);
 }
+
+details.dialog summary::before {
+  content: "";
+  position:absolute;
+  border-radius: 8px;
+  background-color: var(--color-bg);
+  z-index: 1;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 43px;
+}
+
 details.dialog summary::after {
   content: "";
   transform: translate(7px, -5px) rotate(135deg);
   width: 0;
   height: 0;
-  position: relative;
-  top: 10px;
+  position: absolute;
+  top: 37px;
+  right: 10px;
   border-style: solid;
   border-width: 15px 15px 0 15px;
   border-color: transparent transparent transparent var(--color-txt); /* Adjust the color of the chevron */
   transition: all 0.3s ease-in-out;
   transform-origin: 10px;
+  z-index: 2;
 }
 
 details.dialog[open] summary::after {
-  top: 0px;
+  top: 27px;
   transform: translate(10px, -5px) rotate(315deg);
 }
 

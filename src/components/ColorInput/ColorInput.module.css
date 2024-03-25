@@ -6,7 +6,7 @@
 .colorSample {
   height: 3rem;
   width: 3rem;
-  border-radius: 50%;
+  border-radius: 8px;
 }
 
 input.input {
@@ -33,8 +33,10 @@ input.input {
 }
 
 .label {
-  display: inline-flex;
+  display: flex;
   gap: 8px;
+  overflow: auto;
+  padding-right: 50px;
 }
 
 .colorExamples {
@@ -43,4 +45,59 @@ input.input {
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.setting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 3px;
+  font-size: 10px;
+  font-weight:normal;
+  gap: 8px;
+}
+.setting input:not([type="checkbox"]) {
+  width: 50px;
+  flex-grow: 0;
+}
+.setting input[type="checkbox"] {
+  margin-right: 12px;
+}
+.settingGroup {
+  display: flex;
+  gap: 8px;
+}
+
+
+.colors {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.colorSpot {
+  width: 150px;
+  padding: 5px;
+  text-align: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: inline-block;
+  border-radius: 4px;
+  transform: scale(1);
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: transform 0.3s ease-in-out;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  
+  &:hover {
+    transform: scale(1.2);
+    z-index: 2;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.25);
+  }
+}
+.colorPanel {
+  white-space: nowrap;
+  display:flex;
+  gap:15px;
 }

@@ -42,14 +42,11 @@ h1 {
   gap: 10px;
 }
 
-.appBody {
-  display: flex;
-  gap: 15px;
-}
-
 .colorApp {
   display: flex;
   flex-direction: column;
+  display: flex;
+  gap: 15px;
 }
 
 .colorList {
@@ -66,27 +63,6 @@ h1 {
     display: flex;
     gap: 15px;
   }
-}
-
-.setting {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 3px;
-  font-size: 10px;
-  font-weight:normal;
-  gap: 8px;
-}
-.setting input:not([type="checkbox"]) {
-  width: 50px;
-  flex-grow: 0;
-}
-.setting input[type="checkbox"] {
-  margin-right: 12px;
-}
-.settingGroup {
-  display: flex;
-  gap: 8px;
 }
 
 .colorExamples {
