@@ -11,12 +11,23 @@ export const getOpacities = (color) => {
 }
 
 export function getShades(color){
+
   const chromaColor = chroma(color.hex);
-  const scaled = chroma.scale([
-    chromaColor.luminance(color.lightest),
-    chromaColor,
-    chromaColor.luminance(color.darkest)
-  ]).colors(color.valueSteps);
+  const lightest = chromaColor.luminance(color.lightest).hex();
+  const darkest = chromaColor.luminance(color.darkest).hex();
+  const colors = [lightest, darkest];
+  const domain = [100, 0];
+
+  if(color.domain === 0) {
+    colors[0] = color.hex;
+  } else if(color.domain === 100) {
+    colors[1] = color.hex;
+  } else {
+    colors.splice(1, 0, color.hex);
+    domain.splice(1, 0, color.domain);
+  }
+
+  const scaled = chroma.scale(colors).domain(domain).classes(color.valueSteps).colors(color.valueSteps);
 
   return scaled;
 }

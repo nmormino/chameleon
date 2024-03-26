@@ -1,13 +1,17 @@
+import chroma from 'chroma-js';
 import {w3cx11} from '../utils/colors';
 import { atom, map } from 'nanostores';
 
 export const getNewColor = () => {
   const colorArray = Object.keys(w3cx11);
   const name = colorArray[Math.floor(Math.random() * colorArray.length)];
+  const hex = w3cx11[name];
+
   return {
     id: crypto.randomUUID(),
-    hex: w3cx11[name],
+    hex,
     name,
+    domain: 50,
     valueSteps: 11,
     lightest: 0.95,
     darkest: 0.05,

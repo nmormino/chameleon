@@ -18,8 +18,19 @@ const ColorInput = ({ index }) => {
   const opacities = color.opacitySteps > 1 ? getOpacities(color) : [color.maxOpacity];
 
   const saveColor = (edit) => {
+
     colorPalette.setKey(index, {...color, ...edit});
   }
+  const increment = 100 / (color.valueSteps - 1)
+  const domainSteps = [];
+  for (let i = 50; i >= 0; i -= increment) {
+    domainSteps.push(i);
+  }
+  domainSteps.reverse();
+  for (let i = 50 + increment; i <= 100; i += increment) {
+    domainSteps.push(i);
+  }
+
   return (
     <Accordion 
       className={s.colorInput} 
@@ -43,6 +54,20 @@ const ColorInput = ({ index }) => {
               defaultValue={color.name}
               onBlur={(e) => saveColor({name: e.target.value})}
             />
+          </div>
+          <div className={s.setting}>
+            <label htmlFor="domain">Step</label>
+            <select value={color.domain} onChange={(e) => {
+              let value = Number(e.target.value);
+              if (value === 0) {
+                value = 3;
+              }
+              saveColor({domain: Number(e.target.value)})
+            }}>
+              {domainSteps.map((v, i) => {
+                return <option key={v+i} value={v}>{i+1}</option>
+              })}
+            </select>
           </div>
           <div className={s.setting}>
             <label htmlFor="swatchCount">Lightest</label>
@@ -77,9 +102,15 @@ const ColorInput = ({ index }) => {
               id="swatchCount"
               type="number"
               min="3"
-              max="24"
+              max="25"
+              step="2"
               defaultValue={color.valueSteps}
-              onChange={(e) => saveColor({valueSteps: Number(e.target.value)})}
+              onKeyDown={(e) => { // Arrow up and down to change value steps
+                if(!['ArrowUp', 'ArrowDown'].includes(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+              onChange={(e) => saveColor({valueSteps: Math.max(Number(e.target.value), 3), domain: 50})}
             />
           </div>
           <div className={s.setting}>
