@@ -41,7 +41,7 @@ const ColorInput = ({ index }) => {
               placeholder="Color name"
               type="text"
               defaultValue={color.name}
-              onBlur={(e) => saveColor({hex: e.target.value})}
+              onBlur={(e) => saveColor({name: e.target.value})}
             />
           </div>
           <div className={s.setting}>
