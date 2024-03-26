@@ -18,9 +18,9 @@ export function getShades(color){
   const colors = [lightest, darkest];
   const domain = [100, 0];
 
-  if(color.domain === 0) {
+  if(color.domain === 100) {
     colors[0] = color.hex;
-  } else if(color.domain === 100) {
+  } else if(color.domain === 0) {
     colors[1] = color.hex;
   } else {
     colors.splice(1, 0, color.hex);
