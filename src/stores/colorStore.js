@@ -1,4 +1,3 @@
-import chroma from 'chroma-js';
 import {w3cx11} from '../utils/colors';
 import { atom, map } from 'nanostores';
 

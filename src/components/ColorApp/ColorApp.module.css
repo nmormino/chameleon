@@ -36,10 +36,11 @@ h1 {
   }
 }
 
-.colorForm {
+nav.nav {
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  padding: 10px;
 }
 
 .colorApp {
@@ -65,15 +66,40 @@ h1 {
   }
 }
 
-.colorExamples {
+.main {
   overflow: auto;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
 .column {
   flex-shrink: 0;
   min-width: 300px;
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -100% 0%;
+  }
+}
+
+.addButton {
+  /* existing styles */
+  animation: moveGradient 50s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline-offset: 0;
+  height: 100px;
+  flex-shrink: 0;
+  background: linear-gradient(transparent 0%, var(--color-bg) 100%), linear-gradient(to left, red, orange, yellow, green, blue, indigo, violet, red );
+  background-size: 5000px 180px;
+  background-repeat: repeat-x;
 }

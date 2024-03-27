@@ -1,5 +1,6 @@
 import { useStore } from '@nanostores/react';
 import { colorFunction, addColor, colorPalette, exportColors, handleFileUpload, clearColorPalette } from '../../stores/colorStore';
+import { Plus, Download, Upload } from 'react-feather';
 
 import ColorInput from '../ColorInput';
 import * as s from './ColorApp.module.css';
@@ -11,18 +12,18 @@ export default function ColorApp() {
   const colorFunctions = ['rgb', 'hex', 'hsl'];
 
   return (
-    <main className={`${s.colorExamples} panel checkerboardBackground`}>
-      <div className={s.colorForm}>
-        <h1>
+    <main className={`${s.main}`}>
+      <nav className={s.nav}>
+        <h1 className="flexGrow">
           <img src="/chameleon/favicon.svg" alt="Chameleon" width="32" height="32" />
           Chameleon
         </h1>
-        <div className="flexGrow" />
+        <div className="flexGrow"></div>
         <button type="button" className="button" onClick={exportColors}>
-          Export ↓
+          Export <Download size={16} />
         </button>
         <button type="button" className="button" onClick={handleFileUpload}>
-          Import ↑
+          Import <Upload size={16} />
         </button>
         <button type="button" className="button" onClick={clearColorPalette}>
           Clear
@@ -32,13 +33,13 @@ export default function ColorApp() {
             <option key={f} value={f}>{f}</option>
           ))}
         </select>
-      </div>
+      </nav>
       {Object.values($colorPalette).map(color => (
         <ColorInput key={color.id} index={color.id} />
       ))}
-      <div>
-        <button type="button" className="button" onClick={addColor}>Add color</button>
-      </div>
+      <button type="button" className={s.addButton} onClick={addColor}>
+        <Plus size={64}/>
+      </button>
     </main>
   )
 }

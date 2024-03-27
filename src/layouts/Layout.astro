@@ -57,6 +57,10 @@ const { title } = Astro.props;
 		padding: 0;
 		margin-top: 15px;
 	}
+	* {
+		box-sizing: border-box;
+		font-family: "Noto Sans", sans-serif;
+	}
 	*:focus {
 		outline: 1px dashed var(--color-txt);
 		outline-offset: 2px;
@@ -64,7 +68,6 @@ const { title } = Astro.props;
 	html, body {
 		color: var(--color-txt);
 		font-size: 62.5%;
-		padding: 10px;
 		margin: 0;
 		font-family: "Noto Sans", sans-serif;
 		font-optical-sizing: auto;
@@ -76,11 +79,7 @@ const { title } = Astro.props;
 	}
 	body {
 		background-size: 20px 20px;
-		background-color: var(--color-panel-bg);
-		background-image: url("/chameleon/checkerboard.svg");
-	}
-	.panel {
-		padding: 10px;
+		background-color: var(--color-bg);
 	}
 
 	main {
@@ -117,6 +116,10 @@ const { title } = Astro.props;
 		flex-grow: 2;
 	}
 	button, input[type="submit"] {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1ch;
 		border: 1px solid var(--button-border-color);
 		background-color: var(--button-bg-color);
 		color: var(--button-color);

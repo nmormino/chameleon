@@ -6,6 +6,9 @@ details.dialog {
   background: transparent;
   position: static;
   border: 0;
+  padding: 15px;
+  background-size: 300px 250px;
+  background-repeat: repeat-x;
 }
 
 details.dialog summary {
@@ -18,40 +21,15 @@ details.dialog summary {
   gap: 8px;
   border-radius: 8px;
   cursor: pointer;
-  background-color: var(--color-bg);
 }
 
-details.dialog summary::before {
-  content: "";
-  position:absolute;
-  border-radius: 8px;
-  background-color: var(--color-bg);
-  z-index: 1;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 43px;
+details.dialog summary svg {
+  transition: transform 0.3s ease-in-out;
 }
 
-details.dialog summary::after {
-  content: "";
-  transform: translate(7px, -5px) rotate(135deg);
-  width: 0;
-  height: 0;
-  position: absolute;
-  top: 37px;
-  right: 10px;
-  border-style: solid;
-  border-width: 15px 15px 0 15px;
-  border-color: transparent transparent transparent var(--color-txt); /* Adjust the color of the chevron */
-  transition: all 0.3s ease-in-out;
-  transform-origin: 10px;
-  z-index: 2;
-}
 
-details.dialog[open] summary::after {
-  top: 27px;
-  transform: translate(10px, -5px) rotate(315deg);
+details.dialog[open] summary svg {
+  transform: rotate(180deg);
 }
 
 details.dialog summary::-webkit-details-marker, 
@@ -62,4 +40,10 @@ details.dialog summary::marker {
 .section {
   display: flex;
   flex-direction: column;
+  background-image: url("/chameleon/checkerboard.svg"), linear-gradient(var(--color-bg) 0%, var(--color-bg) 100%);
+  background-size: 20px, 20px;
+  color: var(--color-txt);
+  border-radius: 6px;
+  margin-top: 10px;
+  padding: 15px;
 }

@@ -10,9 +10,23 @@
 }
 
 input.input {
-  font-size: 16px;
-  padding: 2px 18px;
+  font-size: 18px;
+  padding: 5px 10px;
+  background-color: transparent;
+  color: inherit;
+  margin-right:50px;
+  border: 0;
+  font-size: 32px;
+  letter-spacing: .1ch;
+  font-weight: 400;
+  border: 2px solid transparent;
 }
+
+input.input:focus {
+  border: 2px solid currentColor;
+  outline: none;
+}
+
 .toggle {
   border: 0;
   background: transparent;
@@ -24,12 +38,6 @@ input.input {
 }
 .toggle svg {
   fill: currentColor;
-}
-
-.colorExamples {
-  display: flex;
-  gap: 15px;
-  padding: 15px 0;
 }
 
 .label {
@@ -44,7 +52,8 @@ input.input {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  margin-top: 15px;
+  gap: 4px;
 }
 
 .setting {
@@ -56,48 +65,58 @@ input.input {
   font-weight:normal;
   gap: 8px;
 }
-.setting input:not([type="checkbox"]) {
-  width: 50px;
+
+.setting input:not([type="checkbox"]), .setting select {
+  width: 70px;
   flex-grow: 0;
 }
+
 .setting input[type="checkbox"] {
   margin-right: 12px;
 }
+
 .settingGroup {
   display: flex;
   gap: 8px;
 }
 
-
-.colors {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.colorSpot {
-  width: 150px;
+.colorSwatch {
+  width: 50px;
+  aspect-ratio: 1;
   padding: 5px;
   text-align: center;
   flex-shrink: 0;
-  border-radius: 50%;
-  display: inline-block;
-  border-radius: 4px;
-  transform: scale(1);
   font-size: 1.2rem;
   font-weight: 600;
   transition: transform 0.3s ease-in-out;
   text-overflow: ellipsis;
   overflow: hidden;
   
-  &:hover {
-    transform: scale(1.2);
+  &:hover, &:focus {
     z-index: 2;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.25);
   }
 }
+
+.swatchSpotlight {
+  margin-top: 15px;
+  width: 200px;
+  flex-shrink: 0;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.25);
+}
+
 .colorPanel {
   white-space: nowrap;
   display:flex;
-  gap:15px;
+  gap: 4px;
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
 }

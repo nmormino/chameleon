@@ -2,7 +2,7 @@ import chroma from "chroma-js";
 
 export const getOpacities = (color) => {
   const opacities = [];
-  const increment = (color.maxOpacity - color.minOpacity) / (color.opacitySteps - 1);
+  const increment = (1 - color.minOpacity) / (color.opacitySteps - 1);
   for (let i = 0; i < color.opacitySteps; i++) {
     opacities.push((Number(color.minOpacity) + Number(i*increment)).toFixed(2));
   }
