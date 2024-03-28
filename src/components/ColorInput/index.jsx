@@ -41,7 +41,7 @@ const ColorInput = ({ index }) => {
 
   useEffect(() => {
     const size = inputMeasure.current?.getBoundingClientRect();
-    nameInput.current.style.width = `${size.width}px`;
+    nameInput.current.style.width = `${size.width+10}px`;
   }, [color]);
   return (
     <Accordion 
