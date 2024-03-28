@@ -16,7 +16,6 @@ export const getNewColor = () => {
     darkest: 0.05,
     opacitySteps: 1,
     minOpacity: 0.1,
-    maxOpacity: 1,
   }
 }
 
@@ -38,6 +37,10 @@ export const colorFunction = atom('hex');
 /** @type {import('nanostores').MapStore<Record<string, color>>} */
 export const colorPalette = map({});
 
+colorPalette.listen((profile, oldProfile, changed) => {
+  localStorage.setItem('colorPalette', JSON.stringify(colorPalette.get()))
+})
+
 export function clearColorPalette() {
   colorPalette.set({});
 }
@@ -49,7 +52,26 @@ export function addColor() {
 }
 
 function initializeColors() {
-  addColor(getNewColor());
+  const colors = localStorage.getItem('colorPalette');
+  if (colors) {
+    try {
+      const parsedColors = JSON.parse(colors);
+      Object.keys(parsedColors).forEach((key) => {
+        parsedColors[key].domain = Number(parsedColors[key].domain);
+        parsedColors[key].valueSteps = Number(parsedColors[key].valueSteps);
+        parsedColors[key].lightest = parseFloat(parsedColors[key].lightest);
+        parsedColors[key].darkest = parseFloat(parsedColors[key].darkest);
+        parsedColors[key].opacitySteps = Number(parsedColors[key].opacitySteps);
+        parsedColors[key].minOpacity = parseFloat(parsedColors[key].minOpacity);
+      });
+      colorPalette.set(parsedColors);
+    } catch (e) {
+      console.log('Failed local storage restoration');
+      addColor(getNewColor());
+    }
+  } else {
+    addColor(getNewColor());
+  }
 }
 initializeColors();
 
