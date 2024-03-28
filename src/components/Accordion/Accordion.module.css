@@ -13,18 +13,16 @@ details.dialog {
 
 details.dialog summary {
   list-style: none;
-  display: flex;
-  align-items: center;
   position: relative;
-  justify-content: space-between;
   padding: 8px;
-  gap: 8px;
   border-radius: 8px;
   cursor: pointer;
 }
 
 details.dialog summary svg {
   transition: transform 0.3s ease-in-out;
+  float: right;
+  margin-top: 10px;
 }
 
 

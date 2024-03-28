@@ -89,7 +89,7 @@ nav.nav {
 
 .addButton {
   /* existing styles */
-  animation: moveGradient 50s linear infinite;
+  animation: moveGradient 50s alternate infinite;
   display: flex;
   align-items: center;
   justify-content: center;

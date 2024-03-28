@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 
 import * as s from './ColorInput.module.css';
@@ -10,6 +10,8 @@ import { colorPalette, colorFunction, removeColor } from '../../stores/colorStor
 const ColorInput = ({ index }) => {
 
   const swatchRef = useRef(null);
+  const inputMeasure = useRef(null);
+  const nameInput = useRef(null);
   const [showRemove, setShowRemove] = useState(false);
   const $colorFunction = useStore(colorFunction);
   const $colorPalette = useStore(colorPalette);
@@ -36,18 +38,27 @@ const ColorInput = ({ index }) => {
     swatchRef.current.style.color = getTextColor(text);
     swatchRef.current.innerText = text;
   }
+
+  useEffect(() => {
+    const size = inputMeasure.current?.getBoundingClientRect();
+    nameInput.current.style.width = `${size.width}px`;
+  }, [color]);
   return (
     <Accordion 
       className={s.colorInput} 
       style={{backgroundImage: `linear-gradient(${color.hex} 0%, var(--color-bg) 100%)`, color: getTextColor(color.hex)}}
       label={(
-        <input
-          className={s.input}
-          placeholder="Color name"
-          type="text"
-          defaultValue={color.name}
-          onBlur={(e) => saveColor({name: e.target.value})}
-        />
+        <>
+          <pre ref={inputMeasure} className={s.inputMeasure}>{color.name}</pre>
+          <input
+            ref={nameInput}
+            className={s.input}
+            placeholder="Color name"
+            type="text"
+            defaultValue={color.name}
+            onChange={(e) => saveColor({name: e.target.value})}
+          />
+        </>
       )}
   >
       <div className={s.controls}>
