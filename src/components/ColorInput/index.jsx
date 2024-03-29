@@ -31,10 +31,10 @@ const ColorInput = ({ index }) => {
   for (let i = 50 + increment; i <= 100; i += increment) {
     domainSteps.push(i);
   }
-  const swatchClick = (e, text) => {
+  const swatchClick = (e, color, text) => {
     e.preventDefault();
     swatchRef.current.style.backgroundColor = text;
-    swatchRef.current.style.color = getTextColor(text);
+    swatchRef.current.style.color = getTextColor(color);
     swatchRef.current.innerText = text;
   }
 
@@ -203,15 +203,13 @@ const ColorInput = ({ index }) => {
                   title={`color`}
                   href="#"
                   onClick={(e) => e.preventDefault()}
-                  onFocus={(e) => swatchClick(e, getFormattedColor($colorFunction, color, opacity))}
-                  onMouseOver={(e) => swatchClick(e, getFormattedColor($colorFunction, color, opacity))}
+                  onFocus={(e) => swatchClick(e, color, getFormattedColor($colorFunction, color, opacity))}
+                  onMouseOver={(e) => swatchClick(e, color, getFormattedColor($colorFunction, color, opacity))}
                   style={{
                     backgroundColor: getFormattedColor($colorFunction, color, opacity),
                     color: getTextColor(color),
                   }}
-                >
-                  {}<br/>
-                </a>
+                />
               ))}
             </div>
           ))}

@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react';
 import { colorFunction, addColor, colorPalette, exportColors, handleFileUpload, clearColorPalette } from '../../stores/colorStore';
-import { Plus, Download, Upload } from 'react-feather';
+import { Plus, Download, Upload, Menu } from 'react-feather';
 
 import ColorInput from '../ColorInput';
 import * as s from './ColorApp.module.css';
@@ -10,7 +10,7 @@ export default function ColorApp() {
   const $colorPalette = useStore(colorPalette);
   const $colorFunction = useStore(colorFunction);
   const colorFunctions = ['rgb', 'hex', 'hsl'];
-
+  
   return (
     <main className={`${s.main}`}>
       <nav className={s.nav}>
@@ -19,15 +19,31 @@ export default function ColorApp() {
           Chameleon
         </h1>
         <div className="flexGrow"></div>
-        <button type="button" className="button" onClick={exportColors}>
-          Export <Download size={16} />
-        </button>
-        <button type="button" className="button" onClick={handleFileUpload}>
-          Import <Upload size={16} />
-        </button>
-        <button type="button" className="button" onClick={clearColorPalette}>
-          Clear
-        </button>
+        <ul className={s.menu}>
+          <li>
+            <label htmlFor="menu">
+              <Menu size={32}/>
+            </label>
+            <input type="checkbox" name="menu-toggle" id="menu"/>
+            <ul>
+              <li>
+                <a onClick={exportColors}>
+                  Export <Download size={16} />
+                </a>
+              </li>
+              <li>
+                <a className="button" onClick={handleFileUpload}>
+                  Import <Upload size={16} />
+                </a>
+              </li>
+              <li>
+                <a className="button" onClick={clearColorPalette}>
+                  Clear
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
         <select name="colorFunction" defaultValue={$colorFunction} onChange={(e) => colorFunction.set(e.target.value)}>
           {colorFunctions.map((f) => (
             <option key={f} value={f}>{f}</option>
