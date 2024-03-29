@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
-
 import * as s from './ColorInput.module.css';
 import Accordion from "../Accordion";
 
@@ -74,7 +73,7 @@ const ColorInput = ({ index }) => {
         </div>
         <div className={s.setting}>
           <label htmlFor="domain">Placement</label>
-          <select value={color.domain} onChange={(e) => {
+          <select id="domain" value={color.domain} onChange={(e) => {
             let value = Number(e.target.value);
             if (value === 0) {
               value = 3;
@@ -87,23 +86,14 @@ const ColorInput = ({ index }) => {
           </select>
         </div>
         <div className={s.setting}>
-          <label htmlFor="swatchCount">Lightest</label>
-          <input
-            className={s.settingInput}
-            id="swatchCount"
-            type="number"
-            min={.5}
-            max={1}
-            step={.01}
-            defaultValue={color.lightest}
-            onChange={(e) => saveColor({lightest: Number(e.target.value)})}
-          />
+          <label htmlFor="saturation">Saturate</label>
+          <input type="number" id="saturation" min="-3" max="3" step=".1" defaultValue={color.saturation} onChange={(e) => saveColor({saturation: Number(e.target.value)})}/>
         </div>
         <div className={s.setting}>
-          <label htmlFor="swatchCount">Darkest</label>
+          <label htmlFor="darkness">Darkness</label>
           <input
             className={s.settingInput}
-            id="swatchCount"
+            id="darkness"
             type="number"
             min={.01}
             max={.5}
@@ -113,10 +103,23 @@ const ColorInput = ({ index }) => {
           />
         </div>
         <div className={s.setting}>
-          <label htmlFor="swatchCount">Values</label>
+          <label htmlFor="lightness">Lightness</label>
           <input
             className={s.settingInput}
-            id="swatchCount"
+            id="lightness"
+            type="number"
+            min={.5}
+            max={1}
+            step={.01}
+            defaultValue={color.lightest}
+            onChange={(e) => saveColor({lightest: Number(e.target.value)})}
+          />
+        </div>
+        <div className={s.setting}>
+          <label htmlFor="values">Values</label>
+          <input
+            className={s.settingInput}
+            id="values"
             type="number"
             min="3"
             max="25"

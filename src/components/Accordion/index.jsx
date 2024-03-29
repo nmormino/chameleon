@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import s from './Accordion.module.css';
 import { ChevronDown } from 'react-feather';
 

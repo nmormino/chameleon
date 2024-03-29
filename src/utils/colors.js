@@ -11,11 +11,22 @@ export const getOpacities = (color) => {
 }
 
 export function getShades(color){
-
+  // get our chroma color
   const chromaColor = chroma(color.hex);
-  const lightest = chromaColor.luminance(color.lightest).hex();
-  const darkest = chromaColor.luminance(color.darkest).hex();
-  const colors = [lightest, darkest];
+
+  // determine our lightest and darkest colors
+  let lightest = chromaColor.luminance(color.lightest);
+  let darkest = chromaColor.luminance(color.darkest);
+  
+  // Adjust saturation if needed.
+  if(color.saturation < 0) {
+    darkest = darkest.desaturate(Math.abs(color.saturation));
+  } else if(color.saturation > 0) {
+    darkest = darkest.saturate(color.saturation);
+  }
+  
+  // create the scale for our colors.
+  const colors = [lightest.hex(), darkest.hex()];
   const domain = [100, 0];
 
   if(color.domain === 100) {

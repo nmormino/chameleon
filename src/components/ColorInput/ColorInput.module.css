@@ -88,7 +88,7 @@ input.input:focus {
 }
 
 .colorSwatch {
-  width: 50px;
+  width: 70px;
   aspect-ratio: 1;
   padding: 5px;
   text-align: center;
@@ -126,5 +126,6 @@ input.input:focus {
 .controls {
   display: flex;
   gap: 15px;
-  justify-content: center;
+  justify-content: left;
+  overflow: auto;
 }

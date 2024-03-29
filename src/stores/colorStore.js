@@ -11,6 +11,7 @@ export const getNewColor = () => {
     hex,
     name,
     domain: 50,
+    saturation: 0,
     valueSteps: 11,
     lightest: 0.95,
     darkest: 0.05,
