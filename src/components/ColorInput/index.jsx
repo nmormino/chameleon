@@ -18,7 +18,7 @@ const ColorInput = ({ index }) => {
   const color = $colorPalette[index];
 
   const colors = getShades(color);
-  const opacities = color.opacitySteps > 1 ? getOpacities(color) : [color.maxOpacity];
+  const opacities = color.opacitySteps > 1 ? getOpacities(color) : [1];
 
   const saveColor = (edit) => {
     colorPalette.setKey(index, {...color, ...edit});
@@ -41,7 +41,7 @@ const ColorInput = ({ index }) => {
 
   useEffect(() => {
     const size = inputMeasure.current?.getBoundingClientRect();
-    nameInput.current.style.width = `${size.width+10}px`;
+    nameInput.current.style.width = `${size.width}px`;
   }, [color]);
   return (
     <Accordion 
@@ -63,8 +63,9 @@ const ColorInput = ({ index }) => {
   >
       <div className={s.controls}>
         <div className={s.setting}>
-          <label htmlFor="swatchCount">Color</label>
+          <label htmlFor="colorSwatch">{getFormattedColor($colorFunction, color.hex, 1)}</label>
           <input 
+            id="colorSwatch"
             className={s.settingInput}
             type="color"
             defaultValue={color.hex}
@@ -72,7 +73,7 @@ const ColorInput = ({ index }) => {
           />
         </div>
         <div className={s.setting}>
-          <label htmlFor="domain">Step</label>
+          <label htmlFor="domain">Placement</label>
           <select value={color.domain} onChange={(e) => {
             let value = Number(e.target.value);
             if (value === 0) {
@@ -112,7 +113,7 @@ const ColorInput = ({ index }) => {
           />
         </div>
         <div className={s.setting}>
-          <label htmlFor="swatchCount">Value steps</label>
+          <label htmlFor="swatchCount">Values</label>
           <input
             className={s.settingInput}
             id="swatchCount"
@@ -148,7 +149,7 @@ const ColorInput = ({ index }) => {
           </>
         )}
         <div className={s.setting}>
-          <label htmlFor="opacitySteps">Opacity steps</label>
+          <label htmlFor="opacitySteps">Opacities</label>
           <input
             className={s.settingInput}
             id="opacitySteps"
@@ -191,7 +192,7 @@ const ColorInput = ({ index }) => {
         
         <div className={s.colorExamples}>
           {opacities.map(opacity => (
-            <div className={s.colorPanel} key={opacity}>
+            <div className={s.colorPanel} key={`color-${opacity}`} id={`color-${opacity}`}>
               {colors.map((color, i) => (
                 <a 
                   key={JSON.stringify([...color, opacity, i])}
