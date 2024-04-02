@@ -1,5 +1,6 @@
 import {w3cx11} from '../utils/colors';
 import { atom, map } from 'nanostores';
+import { getShades, getOpacities, getFormattedColor } from '../utils/colors';
 
 export const getNewColor = () => {
   const colorArray = Object.keys(w3cx11);
@@ -104,6 +105,68 @@ export function exportColors() {
   const a = document.createElement('a');
   a.href = url;
   a.download = 'chameleon.colors.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export function exportDesignSystemTokens() {
+  const colors = colorPalette.get();
+  const designSystem = {
+    colors: Object.keys(colors).map((key) => {
+      const color = colors[key];
+      const shades = getShades(color);
+      const opacities = getOpacities(color);
+      const colorName = color.name.replace(' ', '-').toLowerCase();
+      return {
+        [colorName]: shades.map((shade, i) => {
+          return opacities.map((opacity, j) => {
+            if(j === 0) {
+              return {[`${colorName}-${i+1}`]:{
+                type: 'color',
+                value: getFormattedColor(colorFunction.get(), shade, opacity),
+              }};
+            }
+            return {[`${colorName}-${i+1}-opacity-${j}`]:{
+              type: 'color',
+              value: getFormattedColor(colorFunction.get(), shade, opacity),
+            }};
+          });
+        }),
+      };
+    }),
+  };
+  const json = JSON.stringify(designSystem, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'chameleon.colors.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export function exportCss() {
+  const colors = colorPalette.get();
+  const css = Object.keys(colors).map((key) => {
+    const color = colors[key];
+    const shades = getShades(color);
+    const opacities = getOpacities(color);
+    const colorName = color.name.replace(' ', '-').toLowerCase();
+    const css = shades.map((shade, i) => {
+      return opacities.map((opacity, j) => {
+        if(j === 0) {
+          return `--color-${colorName}-${i+1}: ${getFormattedColor(colorFunction.get(), shade, opacity)};`; 
+        }
+        return `--color-${colorName}-${i+1}-opacity-${j}: ${getFormattedColor(colorFunction.get(), shade, opacity)};`;
+      }).join('\n');
+    }).join('\n');
+    return `${css}`;
+  }).join('\n');
+  const blob = new Blob([css], { type: 'text/css' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'chameleon.colors.css';
   a.click();
   URL.revokeObjectURL(url);
 }

@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react';
-import { colorFunction, addColor, colorPalette, exportColors, handleFileUpload, clearColorPalette } from '../../stores/colorStore';
+import { colorFunction, addColor, colorPalette, exportColors, exportCss, handleFileUpload, clearColorPalette, exportDesignSystemTokens } from '../../stores/colorStore';
 import { Plus, Download, Upload, Menu } from 'react-feather';
 
 import ColorInput from '../ColorInput';
@@ -26,9 +26,19 @@ export default function ColorApp() {
             </label>
             <input type="checkbox" name="menu-toggle" id="menu"/>
             <ul>
-              <li>
+            <li>
                 <a onClick={exportColors}>
                   Export <Download size={16} />
+                </a>
+              </li>
+              <li>
+                <a onClick={exportCss}>
+                  CSS <Download size={16} />
+                </a>
+              </li>
+              <li>
+                <a onClick={exportDesignSystemTokens}>
+                  DST <Download size={16} />
                 </a>
               </li>
               <li>
