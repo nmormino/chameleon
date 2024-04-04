@@ -38,7 +38,7 @@ details.dialog summary::marker {
 .section {
   display: flex;
   flex-direction: column;
-  background-image: url("/chameleon/checkerboard.svg"), linear-gradient(var(--color-bg) 0%, var(--color-bg) 100%);
+  background-image: url("/checkerboard.svg"), linear-gradient(var(--color-bg) 0%, var(--color-bg) 100%);
   background-size: 20px, 20px;
   color: var(--color-txt);
   border-radius: 6px;

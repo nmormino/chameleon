@@ -15,7 +15,7 @@ export default function ColorApp() {
     <main className={`${s.main}`}>
       <nav className={s.nav}>
         <h1 className="flexGrow">
-          <img src="/chameleon/favicon.svg" alt="Chameleon" width="32" height="32" />
+          <img src="/favicon.svg" alt="Chameleon" width="32" height="32" />
           Chameleon
         </h1>
         <div className="flexGrow"></div>
