@@ -12,7 +12,7 @@
   "dependencies": {
     "@astrojs/check": "^0.5.6",
     "@astrojs/react": "^3.0.10",
-    "@astrojs/vercel": "^7.3.4",
+    "@astrojs/vercel": "^7.5.2",
     "@jsonurl/jsonurl": "^1.1.7",
     "@nanostores/react": "^0.7.2",
     "@types/react": "^18.2.62",
