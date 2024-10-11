@@ -88,8 +88,6 @@ export function removeColor(colorId) {
 
 export function importColors(json) {
   clearColorPalette();
-  
-  console.log('Importing colors', json, colorPalette.get());
   const {chameleon: { colors }} = json;
 
   Object.keys(colors).forEach((key) => {

@@ -1,9 +1,15 @@
 ---
+import { Download, Upload } from 'react-feather';
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+const url = Astro.url;
+
+const navItems = [
+	{ href: '/', text: 'Colors' },
+];
 ---
 
 <!doctype html>
@@ -12,7 +18,7 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/chameleon/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,11 +26,64 @@ const { title } = Astro.props;
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 	</head>
 	<body>
+		<header>
+			<nav>
+				<h1 class="logo">
+          <img src="/favicon.svg" alt="Chameleon" width="32" height="32" />
+          Chameleon
+        </h1>
+				<ul>
+					{navItems.map(({ href, text }) => (
+						<li><a href={href} class={href === url.pathname ? 'selected' : ''}>{text}</a></li>
+					))}
+						<li>
+							<a tabindex="0">Actions</a>
+							<ul>
+								<li><a href="#" id="importChameleon">Import <Upload size={16} /></a></li>
+								<li><a href="#" id="exportChameleon">Export <Download size={16} /></a></li>
+								<li><a href="#" id="exportCss">Save CSS <Download size={16} /></a></li>
+								<li><a href="#" id="exportDst">Save Tokens <Download size={16} /></a></li>
+								<li><a href="#" id="clear">Reset</a></li>
+							</ul>
+						</li>
+				</ul>
+			</nav>
+		</header>
 		<slot />
 	</body>
 </html>
-<style is:global>
+<script>
+	import { exportColors, exportCss, handleFileUpload, clearColorPalette, exportDesignSystemTokens } from '../stores/colorStore';
+	const actionElements = {
+		"export": document.getElementById('exportChameleon'),
+		"import": document.getElementById('importChameleon'),
+		"exportCss": document.getElementById('exportCss'),
+		"exportDst": document.getElementById('exportDst'),
+		"clear": document.getElementById('clear'),
+	}
+	actionElements?.export?.addEventListener('click', (e) => {
+		e.preventDefault();
+		exportColors();
+	});
+	actionElements?.import?.addEventListener('click', (e) => {
+		e.preventDefault();
+		handleFileUpload();
+	});
+	actionElements?.exportCss?.addEventListener('click', (e) => {
+		e.preventDefault();
+		exportCss();
+	});
+	actionElements?.exportDst?.addEventListener('click', (e) => {
+		e.preventDefault();
+		exportDesignSystemTokens();
+	});
+	actionElements?.clear?.addEventListener('click', (e) => {
+		e.preventDefault();
+		clearColorPalette();
+	});
 
+</script>
+<style is:global>
 	:root {
 		--color-bg: #ffffff;
 		--color-txt: #000000;
@@ -112,9 +171,6 @@ const { title } = Astro.props;
     background: none;
 	}
 
-	label {
-		flex-grow: 2;
-	}
 	button, input[type="submit"] {
 		display: inline-flex;
 		align-items: center;
@@ -144,5 +200,87 @@ const { title } = Astro.props;
 	.flexGrow {
 		flex-grow: 1;
 		width: 100%;
+	}
+
+	.logo {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size:2rem;
+		margin: 0;
+	}
+
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+	.logo img {
+		animation: spin 60s linear infinite;
+	}
+	header {
+		background-color: var(--color-panel-bg);
+	}
+	header nav {
+		display: flex;
+		justify-content: space-between;
+		padding: 10px 15px;
+		ul {
+			display: flex;
+			gap: 16px;
+			list-style-type: none;
+			padding: 0;
+
+			li {
+				position: relative;
+
+				a {
+					text-decoration: none;
+					color: var(--color-txt);
+					font-size: 1.6rem;
+
+					&.selected {
+						text-decoration: underline;
+					}
+				}
+				ul {
+					display: flex;
+					flex-direction: column;
+					white-space: nowrap;
+					z-index: 300;
+					right: -10px;
+					top: calc(100% + 8px);
+					border-radius: 8px;
+					overflow: hidden;
+					position: absolute;
+					max-height: 0;
+					padding: 0 12px;
+					background-color: var(--color-panel-bg);
+					transition: max-height 0.3s ease-in-out;
+					li {
+						padding: 0;
+
+						&:first-child {
+							padding-top: 10px;
+						}
+						&:last-child {
+							padding-bottom: 10px;
+						}
+					}
+				}
+				a:focus + ul {
+					max-height: 280px;
+					pointer-events: all;
+
+					li {
+						display: flex;
+						gap: 8px;
+					}
+				}
+			}
+		}
 	}
 </style>
